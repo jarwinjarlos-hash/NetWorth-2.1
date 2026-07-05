@@ -1,0 +1,8 @@
+{
+  "name": "Remix: Net Worth",
+  "description": "Simple and elegant net worth tracker to manage assets, liabilities, and track financial growth progress locally.",
+  "requestFramePermissions": [],
+  "majorCapabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
+}

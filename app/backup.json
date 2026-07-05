@@ -1,0 +1,3545 @@
+{
+  "categories": [
+    {
+      "id": 22,
+      "name": "Checking Account",
+      "isAsset": true
+    },
+    {
+      "id": 21,
+      "name": "Cash",
+      "isAsset": true
+    },
+    {
+      "id": 28,
+      "name": "Stocks",
+      "isAsset": true
+    },
+    {
+      "id": 23,
+      "name": "Credit Cards",
+      "isAsset": false
+    },
+    {
+      "id": 26,
+      "name": "Mutual Funds",
+      "isAsset": true
+    },
+    {
+      "id": 20,
+      "name": "Bonds",
+      "isAsset": true
+    },
+    {
+      "id": 24,
+      "name": "Crypto",
+      "isAsset": true
+    },
+    {
+      "id": 25,
+      "name": "Fixed Income",
+      "isAsset": true
+    },
+    {
+      "id": 27,
+      "name": "Pension",
+      "isAsset": true
+    },
+    {
+      "id": 29,
+      "name": "VUL Insurance",
+      "isAsset": false
+    },
+    {
+      "id": 30,
+      "name": "VUL Insurance",
+      "isAsset": true
+    },
+    {
+      "id": 31,
+      "name": "Realty \/ Non-Liquid ",
+      "isAsset": true
+    }
+  ],
+  "buckets": [
+    {
+      "id": 13,
+      "name": "Bucket 1 - Cash",
+      "description": "5 year cash fund",
+      "targetAmount": 6120000,
+      "isDecumulation": false,
+      "yearlySpendBudget": 1200000,
+      "bufferYears": 5,
+      "warningThresholdPercent": 20,
+      "targetGainPercent": 3,
+      "lastYearPerformancePercent": 6
+    },
+    {
+      "id": 14,
+      "name": "Bucket 2 - Bonds",
+      "description": "10 year worth of yearly expense",
+      "targetAmount": 12200000,
+      "isDecumulation": false,
+      "yearlySpendBudget": 0,
+      "bufferYears": 5,
+      "warningThresholdPercent": 20,
+      "targetGainPercent": 5,
+      "lastYearPerformancePercent": 6
+    },
+    {
+      "id": 15,
+      "name": "Bucket 3 - Equities",
+      "description": "Equities",
+      "targetAmount": 24500000,
+      "isDecumulation": false,
+      "yearlySpendBudget": 0,
+      "bufferYears": 5,
+      "warningThresholdPercent": 20,
+      "targetGainPercent": 6,
+      "lastYearPerformancePercent": 10
+    },
+    {
+      "id": 16,
+      "name": "Education",
+      "description": "Jhanna and Jhasmine Fund",
+      "targetAmount": 2500000,
+      "isDecumulation": false,
+      "yearlySpendBudget": 0,
+      "bufferYears": 5,
+      "warningThresholdPercent": 20,
+      "targetGainPercent": 3,
+      "lastYearPerformancePercent": 4
+    },
+    {
+      "id": 17,
+      "name": "Emergency Fund",
+      "description": "",
+      "targetAmount": 0,
+      "isDecumulation": false,
+      "yearlySpendBudget": 0,
+      "bufferYears": 5,
+      "warningThresholdPercent": 20,
+      "targetGainPercent": 6,
+      "lastYearPerformancePercent": 0
+    },
+    {
+      "id": 18,
+      "name": "Safety Net",
+      "description": "Family VUL",
+      "targetAmount": 0,
+      "isDecumulation": false,
+      "yearlySpendBudget": 0,
+      "bufferYears": 5,
+      "warningThresholdPercent": 20,
+      "targetGainPercent": 6,
+      "lastYearPerformancePercent": 0
+    }
+  ],
+  "assets": [
+    {
+      "id": 52,
+      "name": "Anna's VUL",
+      "currency": "PHP",
+      "categoryId": 29,
+      "currentValuation": 0,
+      "isArchived": false,
+      "includeInPortfolio": true,
+      "bucketId": null
+    },
+    {
+      "id": 53,
+      "name": "Ayala Share",
+      "currency": "PHP",
+      "categoryId": 25,
+      "currentValuation": 0,
+      "isArchived": false,
+      "includeInPortfolio": true,
+      "bucketId": 14
+    },
+    {
+      "id": 104,
+      "name": "BPI Joint",
+      "currency": "USD",
+      "categoryId": 22,
+      "currentValuation": 0,
+      "isArchived": false,
+      "includeInPortfolio": true,
+      "bucketId": null
+    },
+    {
+      "id": 54,
+      "name": "BPI MM Fund",
+      "currency": "PHP",
+      "categoryId": 20,
+      "currentValuation": 0,
+      "isArchived": false,
+      "includeInPortfolio": true,
+      "bucketId": 17
+    },
+    {
+      "id": 55,
+      "name": "BPI PMA",
+      "currency": "PHP",
+      "categoryId": 20,
+      "currentValuation": 0,
+      "isArchived": false,
+      "includeInPortfolio": true,
+      "bucketId": 17
+    },
+    {
+      "id": 56,
+      "name": "BPI Pamana",
+      "currency": "PHP",
+      "categoryId": 22,
+      "currentValuation": 0,
+      "isArchived": false,
+      "includeInPortfolio": true,
+      "bucketId": 13
+    },
+    {
+      "id": 57,
+      "name": "BPI Peso Fund",
+      "currency": "PHP",
+      "categoryId": 20,
+      "currentValuation": 0,
+      "isArchived": false,
+      "includeInPortfolio": true,
+      "bucketId": 17
+    },
+    {
+      "id": 58,
+      "name": "BPI USD",
+      "currency": "USD",
+      "categoryId": 22,
+      "currentValuation": 0,
+      "isArchived": false,
+      "includeInPortfolio": true,
+      "bucketId": 13
+    },
+    {
+      "id": 59,
+      "name": "BPI USD TBills",
+      "currency": "USD",
+      "categoryId": 20,
+      "currentValuation": 0,
+      "isArchived": false,
+      "includeInPortfolio": true,
+      "bucketId": 15
+    },
+    {
+      "id": 60,
+      "name": "Binance",
+      "currency": "USD",
+      "categoryId": 24,
+      "currentValuation": 0,
+      "isArchived": false,
+      "includeInPortfolio": true,
+      "bucketId": 15
+    },
+    {
+      "id": 61,
+      "name": "CIMB",
+      "currency": "PHP",
+      "categoryId": 21,
+      "currentValuation": 0,
+      "isArchived": false,
+      "includeInPortfolio": true,
+      "bucketId": 13
+    },
+    {
+      "id": 62,
+      "name": "Capital.com",
+      "currency": "USD",
+      "categoryId": 28,
+      "currentValuation": 0,
+      "isArchived": false,
+      "includeInPortfolio": true,
+      "bucketId": 15
+    },
+    {
+      "id": 102,
+      "name": "D360",
+      "currency": "SAR",
+      "categoryId": 22,
+      "currentValuation": 0,
+      "isArchived": false,
+      "includeInPortfolio": true,
+      "bucketId": 13
+    },
+    {
+      "id": 63,
+      "name": "Diskartech",
+      "currency": "PHP",
+      "categoryId": 21,
+      "currentValuation": 0,
+      "isArchived": false,
+      "includeInPortfolio": true,
+      "bucketId": 13
+    },
+    {
+      "id": 64,
+      "name": "DragonFi",
+      "currency": "PHP",
+      "categoryId": 28,
+      "currentValuation": 0,
+      "isArchived": false,
+      "includeInPortfolio": true,
+      "bucketId": 15
+    },
+    {
+      "id": 65,
+      "name": "DragonFi Anna",
+      "currency": "PHP",
+      "categoryId": 28,
+      "currentValuation": 0,
+      "isArchived": false,
+      "includeInPortfolio": true,
+      "bucketId": 15
+    },
+    {
+      "id": 66,
+      "name": "DragonFi PERA",
+      "currency": "PHP",
+      "categoryId": 28,
+      "currentValuation": 0,
+      "isArchived": false,
+      "includeInPortfolio": true,
+      "bucketId": 15
+    },
+    {
+      "id": 67,
+      "name": "GCrypto",
+      "currency": "PHP",
+      "categoryId": 24,
+      "currentValuation": 0,
+      "isArchived": false,
+      "includeInPortfolio": true,
+      "bucketId": 15
+    },
+    {
+      "id": 68,
+      "name": "GInvest",
+      "currency": "PHP",
+      "categoryId": 26,
+      "currentValuation": 0,
+      "isArchived": false,
+      "includeInPortfolio": true,
+      "bucketId": 15
+    },
+    {
+      "id": 69,
+      "name": "GoTrade",
+      "currency": "USD",
+      "categoryId": 28,
+      "currentValuation": 0,
+      "isArchived": false,
+      "includeInPortfolio": true,
+      "bucketId": 15
+    },
+    {
+      "id": 70,
+      "name": "IBKR",
+      "currency": "USD",
+      "categoryId": 28,
+      "currentValuation": 0,
+      "isArchived": false,
+      "includeInPortfolio": true,
+      "bucketId": 15
+    },
+    {
+      "id": 71,
+      "name": "Indemnity",
+      "currency": "SAR",
+      "categoryId": 28,
+      "currentValuation": 0,
+      "isArchived": false,
+      "includeInPortfolio": false,
+      "bucketId": 15
+    },
+    {
+      "id": 72,
+      "name": "Investa",
+      "currency": "PHP",
+      "categoryId": 26,
+      "currentValuation": 0,
+      "isArchived": false,
+      "includeInPortfolio": true,
+      "bucketId": 15
+    },
+    {
+      "id": 73,
+      "name": "Jarwin's VUL",
+      "currency": "PHP",
+      "categoryId": 29,
+      "currentValuation": 0,
+      "isArchived": false,
+      "includeInPortfolio": true,
+      "bucketId": null
+    },
+    {
+      "id": 74,
+      "name": "Jhanna's VUL",
+      "currency": "PHP",
+      "categoryId": 29,
+      "currentValuation": 0,
+      "isArchived": false,
+      "includeInPortfolio": true,
+      "bucketId": null
+    },
+    {
+      "id": 75,
+      "name": "Jhasmine's VUL",
+      "currency": "PHP",
+      "categoryId": 29,
+      "currentValuation": 0,
+      "isArchived": false,
+      "includeInPortfolio": true,
+      "bucketId": null
+    },
+    {
+      "id": 76,
+      "name": "MP2 01",
+      "currency": "PHP",
+      "categoryId": 20,
+      "currentValuation": 0,
+      "isArchived": false,
+      "includeInPortfolio": true,
+      "bucketId": 14
+    },
+    {
+      "id": 77,
+      "name": "MP2 02",
+      "currency": "PHP",
+      "categoryId": 20,
+      "currentValuation": 0,
+      "isArchived": false,
+      "includeInPortfolio": true,
+      "bucketId": 14
+    },
+    {
+      "id": 78,
+      "name": "MariBank",
+      "currency": "PHP",
+      "categoryId": 21,
+      "currentValuation": 0,
+      "isArchived": false,
+      "includeInPortfolio": true,
+      "bucketId": 13
+    },
+    {
+      "id": 79,
+      "name": "Maya",
+      "currency": "PHP",
+      "categoryId": 21,
+      "currentValuation": 0,
+      "isArchived": false,
+      "includeInPortfolio": true,
+      "bucketId": 13
+    },
+    {
+      "id": 80,
+      "name": "Maya Credit",
+      "currency": "PHP",
+      "categoryId": 23,
+      "currentValuation": 0,
+      "isArchived": false,
+      "includeInPortfolio": true,
+      "bucketId": null
+    },
+    {
+      "id": 81,
+      "name": "Maya Crypto",
+      "currency": "PHP",
+      "categoryId": 24,
+      "currentValuation": 0,
+      "isArchived": false,
+      "includeInPortfolio": true,
+      "bucketId": 15
+    },
+    {
+      "id": 82,
+      "name": "Maya Wallet",
+      "currency": "PHP",
+      "categoryId": 22,
+      "currentValuation": 0,
+      "isArchived": false,
+      "includeInPortfolio": true,
+      "bucketId": 13
+    },
+    {
+      "id": 83,
+      "name": "Netbank",
+      "currency": "PHP",
+      "categoryId": 21,
+      "currentValuation": 0,
+      "isArchived": false,
+      "includeInPortfolio": true,
+      "bucketId": 16
+    },
+    {
+      "id": 84,
+      "name": "OwnBank",
+      "currency": "PHP",
+      "categoryId": 21,
+      "currentValuation": 0,
+      "isArchived": false,
+      "includeInPortfolio": true,
+      "bucketId": 16
+    },
+    {
+      "id": 85,
+      "name": "PDAX",
+      "currency": "PHP",
+      "categoryId": 20,
+      "currentValuation": 0,
+      "isArchived": false,
+      "includeInPortfolio": true,
+      "bucketId": 15
+    },
+    {
+      "id": 86,
+      "name": "Pension Booster",
+      "currency": "PHP",
+      "categoryId": 27,
+      "currentValuation": 0,
+      "isArchived": false,
+      "includeInPortfolio": false,
+      "bucketId": 18
+    },
+    {
+      "id": 87,
+      "name": "SAB Bond",
+      "currency": "SAR",
+      "categoryId": 20,
+      "currentValuation": 0,
+      "isArchived": false,
+      "includeInPortfolio": true,
+      "bucketId": 17
+    },
+    {
+      "id": 101,
+      "name": "SAB Credit",
+      "currency": "SAR",
+      "categoryId": 23,
+      "currentValuation": 0,
+      "isArchived": false,
+      "includeInPortfolio": true,
+      "bucketId": 13
+    },
+    {
+      "id": 103,
+      "name": "SAB Debit",
+      "currency": "SAR",
+      "categoryId": 22,
+      "currentValuation": 0,
+      "isArchived": false,
+      "includeInPortfolio": true,
+      "bucketId": null
+    },
+    {
+      "id": 88,
+      "name": "SAHL",
+      "currency": "SAR",
+      "categoryId": 28,
+      "currentValuation": 0,
+      "isArchived": false,
+      "includeInPortfolio": true,
+      "bucketId": 15
+    },
+    {
+      "id": 89,
+      "name": "SB Global UITF",
+      "currency": "USD",
+      "categoryId": 26,
+      "currentValuation": 0,
+      "isArchived": false,
+      "includeInPortfolio": true,
+      "bucketId": 15
+    },
+    {
+      "id": 90,
+      "name": "SSS Contribution",
+      "currency": "PHP",
+      "categoryId": 27,
+      "currentValuation": 0,
+      "isArchived": false,
+      "includeInPortfolio": false,
+      "bucketId": 18
+    },
+    {
+      "id": 91,
+      "name": "SanMig Share",
+      "currency": "PHP",
+      "categoryId": 25,
+      "currentValuation": 0,
+      "isArchived": false,
+      "includeInPortfolio": true,
+      "bucketId": 14
+    },
+    {
+      "id": 92,
+      "name": "Singlife",
+      "currency": "PHP",
+      "categoryId": 26,
+      "currentValuation": 0,
+      "isArchived": false,
+      "includeInPortfolio": true,
+      "bucketId": 15
+    },
+    {
+      "id": 93,
+      "name": "Tonik",
+      "currency": "PHP",
+      "categoryId": 21,
+      "currentValuation": 0,
+      "isArchived": false,
+      "includeInPortfolio": true,
+      "bucketId": 16
+    },
+    {
+      "id": 94,
+      "name": "Uno Bank",
+      "currency": "PHP",
+      "categoryId": 21,
+      "currentValuation": 0,
+      "isArchived": false,
+      "includeInPortfolio": true,
+      "bucketId": 16
+    }
+  ],
+  "transactions": [
+    {
+      "id": 622,
+      "assetId": 101,
+      "type": "WITHDRAWAL",
+      "amount": 1682,
+      "timestamp": 1782648616109,
+      "destinationAssetId": null,
+      "exchangeRate": null,
+      "notes": "PH Vacation > Flight | Re Booking Fee"
+    },
+    {
+      "id": 610,
+      "assetId": 101,
+      "type": "WITHDRAWAL",
+      "amount": 15,
+      "timestamp": 1782618800561,
+      "destinationAssetId": null,
+      "exchangeRate": null,
+      "notes": "Food > Coffee | Coffee"
+    },
+    {
+      "id": 608,
+      "assetId": 104,
+      "type": "UPDATE",
+      "amount": 851.01,
+      "timestamp": 1782581718077,
+      "destinationAssetId": null,
+      "exchangeRate": null,
+      "notes": "Bulk automatic verification"
+    },
+    {
+      "id": 605,
+      "assetId": 71,
+      "type": "UPDATE",
+      "amount": 445874,
+      "timestamp": 1782581005687,
+      "destinationAssetId": null,
+      "exchangeRate": null,
+      "notes": "Bulk automatic verification"
+    },
+    {
+      "id": 604,
+      "assetId": 101,
+      "type": "WITHDRAWAL",
+      "amount": 74,
+      "timestamp": 1782575951026,
+      "destinationAssetId": null,
+      "exchangeRate": null,
+      "notes": "Car > Fuel | "
+    },
+    {
+      "id": 603,
+      "assetId": 101,
+      "type": "WITHDRAWAL",
+      "amount": 866.76,
+      "timestamp": 1782561876397,
+      "destinationAssetId": null,
+      "exchangeRate": null,
+      "notes": "Car > Maintenance | chery"
+    },
+    {
+      "id": 602,
+      "assetId": 102,
+      "type": "WITHDRAWAL",
+      "amount": 28,
+      "timestamp": 1782553622572,
+      "destinationAssetId": null,
+      "exchangeRate": null,
+      "notes": "Food > Restaurants | "
+    },
+    {
+      "id": 601,
+      "assetId": 64,
+      "type": "UPDATE",
+      "amount": 2274060.55,
+      "timestamp": 1782551497121,
+      "destinationAssetId": null,
+      "exchangeRate": null,
+      "notes": "Bulk automatic verification"
+    },
+    {
+      "id": 623,
+      "assetId": 101,
+      "type": "WITHDRAWAL",
+      "amount": 2110.72,
+      "timestamp": 1782550800450,
+      "destinationAssetId": null,
+      "exchangeRate": null,
+      "notes": "Other > Uncategorized | adjustment carry over."
+    },
+    {
+      "id": 600,
+      "assetId": 101,
+      "type": "WITHDRAWAL",
+      "amount": 19,
+      "timestamp": 1782537443219,
+      "destinationAssetId": null,
+      "exchangeRate": null,
+      "notes": "Food > Coffee | "
+    },
+    {
+      "id": 599,
+      "assetId": 103,
+      "type": "DEPOSIT",
+      "amount": 473.04,
+      "timestamp": 1782501491512,
+      "destinationAssetId": null,
+      "exchangeRate": null,
+      "notes": null
+    },
+    {
+      "id": 598,
+      "assetId": 103,
+      "type": "UPDATE",
+      "amount": 0,
+      "timestamp": 1782501481780,
+      "destinationAssetId": null,
+      "exchangeRate": null,
+      "notes": "Initial Balance Setup"
+    },
+    {
+      "id": 597,
+      "assetId": 82,
+      "type": "WITHDRAWAL",
+      "amount": 1149,
+      "timestamp": 1782501381447,
+      "destinationAssetId": null,
+      "exchangeRate": null,
+      "notes": "Other > Uncategorized | Balance Adjustment: Adjustment"
+    },
+    {
+      "id": 596,
+      "assetId": 102,
+      "type": "WITHDRAWAL",
+      "amount": 24.37,
+      "timestamp": 1782500230130,
+      "destinationAssetId": null,
+      "exchangeRate": null,
+      "notes": "Bisyo > BH | Extension Cord"
+    },
+    {
+      "id": 595,
+      "assetId": 102,
+      "type": "WITHDRAWAL",
+      "amount": 129.3,
+      "timestamp": 1782500040119,
+      "destinationAssetId": null,
+      "exchangeRate": null,
+      "notes": "Bisyo > Vape | Vape"
+    },
+    {
+      "id": 594,
+      "assetId": 102,
+      "type": "DEPOSIT",
+      "amount": 200,
+      "timestamp": 1782499966129,
+      "destinationAssetId": null,
+      "exchangeRate": null,
+      "notes": "[Income] | "
+    },
+    {
+      "id": 593,
+      "assetId": 101,
+      "type": "WITHDRAWAL",
+      "amount": 13,
+      "timestamp": 1782494361372,
+      "destinationAssetId": null,
+      "exchangeRate": null,
+      "notes": "Food > Coffee | "
+    },
+    {
+      "id": 592,
+      "assetId": 102,
+      "type": "DEPOSIT",
+      "amount": 108.89,
+      "timestamp": 1782492624560,
+      "destinationAssetId": null,
+      "exchangeRate": null,
+      "notes": null
+    },
+    {
+      "id": 591,
+      "assetId": 102,
+      "type": "UPDATE",
+      "amount": 0,
+      "timestamp": 1782492500432,
+      "destinationAssetId": null,
+      "exchangeRate": null,
+      "notes": "Initial Balance Setup"
+    },
+    {
+      "id": 590,
+      "assetId": 101,
+      "type": "WITHDRAWAL",
+      "amount": 20,
+      "timestamp": 1782492228277,
+      "destinationAssetId": null,
+      "exchangeRate": null,
+      "notes": "Food > Coffee | "
+    },
+    {
+      "id": 589,
+      "assetId": 101,
+      "type": "UPDATE",
+      "amount": 0,
+      "timestamp": 1782492020962,
+      "destinationAssetId": null,
+      "exchangeRate": null,
+      "notes": "Monthly Value Update (Auto-saved)"
+    },
+    {
+      "id": 304,
+      "assetId": 69,
+      "type": "INCOME",
+      "amount": 12.46,
+      "timestamp": 1782267755789,
+      "destinationAssetId": null,
+      "exchangeRate": null,
+      "notes": "VXUS"
+    },
+    {
+      "id": 306,
+      "assetId": 58,
+      "type": "UPDATE",
+      "amount": 1142.74,
+      "timestamp": 1782154650114,
+      "destinationAssetId": null,
+      "exchangeRate": null,
+      "notes": "Monthly Value Update (Auto-saved)"
+    },
+    {
+      "id": 307,
+      "assetId": 56,
+      "type": "UPDATE",
+      "amount": 4884.83,
+      "timestamp": 1782154289163,
+      "destinationAssetId": null,
+      "exchangeRate": null,
+      "notes": "Bulk automatic verification"
+    },
+    {
+      "id": 309,
+      "assetId": 79,
+      "type": "TRANSFER",
+      "amount": 1000,
+      "timestamp": 1782152639362,
+      "destinationAssetId": 82,
+      "exchangeRate": null,
+      "notes": null
+    },
+    {
+      "id": 310,
+      "assetId": 69,
+      "type": "UPDATE",
+      "amount": 16405,
+      "timestamp": 1782145085191,
+      "destinationAssetId": null,
+      "exchangeRate": null,
+      "notes": null
+    },
+    {
+      "id": 311,
+      "assetId": 82,
+      "type": "DEPOSIT",
+      "amount": 2157,
+      "timestamp": 1782144398388,
+      "destinationAssetId": null,
+      "exchangeRate": null,
+      "notes": null
+    },
+    {
+      "id": 312,
+      "assetId": 82,
+      "type": "UPDATE",
+      "amount": 0,
+      "timestamp": 1782144360734,
+      "destinationAssetId": null,
+      "exchangeRate": null,
+      "notes": "Bulk automatic verification"
+    },
+    {
+      "id": 313,
+      "assetId": 78,
+      "type": "WITHDRAWAL",
+      "amount": 889.6,
+      "timestamp": 1782144042780,
+      "destinationAssetId": null,
+      "exchangeRate": null,
+      "notes": "Leisure > Shopping | Shoppee"
+    },
+    {
+      "id": 314,
+      "assetId": 66,
+      "type": "UPDATE",
+      "amount": 207881,
+      "timestamp": 1782139089041,
+      "destinationAssetId": null,
+      "exchangeRate": null,
+      "notes": null
+    },
+    {
+      "id": 316,
+      "assetId": 56,
+      "type": "WITHDRAWAL",
+      "amount": 3615,
+      "timestamp": 1782118800660,
+      "destinationAssetId": null,
+      "exchangeRate": null,
+      "notes": "Leisure > Travel | Concert Ate"
+    },
+    {
+      "id": 317,
+      "assetId": 91,
+      "type": "UPDATE",
+      "amount": 2032691,
+      "timestamp": 1782102657809,
+      "destinationAssetId": null,
+      "exchangeRate": null,
+      "notes": "Monthly Value Update (Auto-saved)"
+    },
+    {
+      "id": 318,
+      "assetId": 80,
+      "type": "UPDATE",
+      "amount": 0,
+      "timestamp": 1782102363601,
+      "destinationAssetId": null,
+      "exchangeRate": null,
+      "notes": "Bulk automatic verification"
+    },
+    {
+      "id": 320,
+      "assetId": 79,
+      "type": "UPDATE",
+      "amount": 2503718,
+      "timestamp": 1782096897946,
+      "destinationAssetId": null,
+      "exchangeRate": null,
+      "notes": "Category verification macro"
+    },
+    {
+      "id": 321,
+      "assetId": 56,
+      "type": "DEPOSIT",
+      "amount": 4884.83,
+      "timestamp": 1782094559773,
+      "destinationAssetId": null,
+      "exchangeRate": null,
+      "notes": null
+    },
+    {
+      "id": 322,
+      "assetId": 75,
+      "type": "UPDATE",
+      "amount": 398277.8,
+      "timestamp": 1782054365500,
+      "destinationAssetId": null,
+      "exchangeRate": null,
+      "notes": "Monthly Value Update (Auto-saved)"
+    },
+    {
+      "id": 324,
+      "assetId": 74,
+      "type": "UPDATE",
+      "amount": 402535.8,
+      "timestamp": 1782054365499,
+      "destinationAssetId": null,
+      "exchangeRate": null,
+      "notes": "Monthly Value Update (Auto-saved)"
+    },
+    {
+      "id": 323,
+      "assetId": 52,
+      "type": "UPDATE",
+      "amount": 133000,
+      "timestamp": 1782054365499,
+      "destinationAssetId": null,
+      "exchangeRate": null,
+      "notes": "Monthly Value Update (Auto-saved)"
+    },
+    {
+      "id": 325,
+      "assetId": 73,
+      "type": "UPDATE",
+      "amount": 78000,
+      "timestamp": 1782054365498,
+      "destinationAssetId": null,
+      "exchangeRate": null,
+      "notes": "Monthly Value Update (Auto-saved)"
+    },
+    {
+      "id": 327,
+      "assetId": 65,
+      "type": "UPDATE",
+      "amount": 200194,
+      "timestamp": 1782054363188,
+      "destinationAssetId": null,
+      "exchangeRate": null,
+      "notes": "Monthly Value Update (Auto-saved)"
+    },
+    {
+      "id": 326,
+      "assetId": 66,
+      "type": "UPDATE",
+      "amount": 200000,
+      "timestamp": 1782054363188,
+      "destinationAssetId": null,
+      "exchangeRate": null,
+      "notes": "Monthly Value Update (Auto-saved)"
+    },
+    {
+      "id": 328,
+      "assetId": 90,
+      "type": "UPDATE",
+      "amount": 286436,
+      "timestamp": 1782054359656,
+      "destinationAssetId": null,
+      "exchangeRate": null,
+      "notes": "Monthly Value Update (Auto-saved)"
+    },
+    {
+      "id": 329,
+      "assetId": 86,
+      "type": "UPDATE",
+      "amount": 1200000,
+      "timestamp": 1782054359655,
+      "destinationAssetId": null,
+      "exchangeRate": null,
+      "notes": "Monthly Value Update (Auto-saved)"
+    },
+    {
+      "id": 330,
+      "assetId": 53,
+      "type": "UPDATE",
+      "amount": 900000,
+      "timestamp": 1782054358363,
+      "destinationAssetId": null,
+      "exchangeRate": null,
+      "notes": "Monthly Value Update (Auto-saved)"
+    },
+    {
+      "id": 331,
+      "assetId": 60,
+      "type": "UPDATE",
+      "amount": 1039,
+      "timestamp": 1782054356182,
+      "destinationAssetId": null,
+      "exchangeRate": null,
+      "notes": "Monthly Value Update (Auto-saved)"
+    },
+    {
+      "id": 332,
+      "assetId": 85,
+      "type": "UPDATE",
+      "amount": 107400,
+      "timestamp": 1782054348629,
+      "destinationAssetId": null,
+      "exchangeRate": null,
+      "notes": "Quick thumb checkbox check-in"
+    },
+    {
+      "id": 333,
+      "assetId": 77,
+      "type": "UPDATE",
+      "amount": 5330164.31,
+      "timestamp": 1782054346481,
+      "destinationAssetId": null,
+      "exchangeRate": null,
+      "notes": "Quick thumb checkbox check-in"
+    },
+    {
+      "id": 334,
+      "assetId": 76,
+      "type": "UPDATE",
+      "amount": 5501772.37,
+      "timestamp": 1782054345907,
+      "destinationAssetId": null,
+      "exchangeRate": null,
+      "notes": "Quick thumb checkbox check-in"
+    },
+    {
+      "id": 335,
+      "assetId": 55,
+      "type": "UPDATE",
+      "amount": 5000000,
+      "timestamp": 1782054332822,
+      "destinationAssetId": null,
+      "exchangeRate": null,
+      "notes": "Quick thumb checkbox check-in"
+    },
+    {
+      "id": 336,
+      "assetId": 63,
+      "type": "UPDATE",
+      "amount": 49221.96,
+      "timestamp": 1782054318135,
+      "destinationAssetId": null,
+      "exchangeRate": null,
+      "notes": "Monthly Value Update (Auto-saved)"
+    },
+    {
+      "id": 338,
+      "assetId": 91,
+      "type": "INCOME",
+      "amount": 32691,
+      "timestamp": 1782016315847,
+      "destinationAssetId": null,
+      "exchangeRate": null,
+      "notes": null
+    },
+    {
+      "id": 339,
+      "assetId": 84,
+      "type": "UPDATE",
+      "amount": 558774,
+      "timestamp": 1781983820479,
+      "destinationAssetId": null,
+      "exchangeRate": null,
+      "notes": null
+    },
+    {
+      "id": 340,
+      "assetId": 67,
+      "type": "UPDATE",
+      "amount": 35637,
+      "timestamp": 1781967918240,
+      "destinationAssetId": null,
+      "exchangeRate": null,
+      "notes": null
+    },
+    {
+      "id": 341,
+      "assetId": 81,
+      "type": "UPDATE",
+      "amount": 171697,
+      "timestamp": 1781967495728,
+      "destinationAssetId": null,
+      "exchangeRate": null,
+      "notes": null
+    },
+    {
+      "id": 342,
+      "assetId": 62,
+      "type": "UPDATE",
+      "amount": 2034,
+      "timestamp": 1781812817598,
+      "destinationAssetId": null,
+      "exchangeRate": null,
+      "notes": null
+    },
+    {
+      "id": 343,
+      "assetId": 83,
+      "type": "UPDATE",
+      "amount": 561236.64,
+      "timestamp": 1781750772050,
+      "destinationAssetId": null,
+      "exchangeRate": null,
+      "notes": null
+    },
+    {
+      "id": 344,
+      "assetId": 69,
+      "type": "INCOME",
+      "amount": 7.45,
+      "timestamp": 1781600400824,
+      "destinationAssetId": null,
+      "exchangeRate": null,
+      "notes": "O"
+    },
+    {
+      "id": 345,
+      "assetId": 64,
+      "type": "INCOME",
+      "amount": 4253.2,
+      "timestamp": 1781168400957,
+      "destinationAssetId": null,
+      "exchangeRate": null,
+      "notes": "AREIT"
+    },
+    {
+      "id": 346,
+      "assetId": 64,
+      "type": "INCOME",
+      "amount": 2875,
+      "timestamp": 1781082000670,
+      "destinationAssetId": null,
+      "exchangeRate": null,
+      "notes": "GLO"
+    },
+    {
+      "id": 573,
+      "assetId": 72,
+      "type": "INCOME",
+      "amount": 366.02,
+      "timestamp": 1780995600770,
+      "destinationAssetId": null,
+      "exchangeRate": null,
+      "notes": null
+    },
+    {
+      "id": 347,
+      "assetId": 64,
+      "type": "INCOME",
+      "amount": 1440,
+      "timestamp": 1780909200466,
+      "destinationAssetId": null,
+      "exchangeRate": null,
+      "notes": "FILRT"
+    },
+    {
+      "id": 348,
+      "assetId": 89,
+      "type": "UPDATE",
+      "amount": 5110,
+      "timestamp": 1780304400975,
+      "destinationAssetId": null,
+      "exchangeRate": null,
+      "notes": null
+    },
+    {
+      "id": 349,
+      "assetId": 72,
+      "type": "UPDATE",
+      "amount": 474045,
+      "timestamp": 1780304400863,
+      "destinationAssetId": null,
+      "exchangeRate": null,
+      "notes": null
+    },
+    {
+      "id": 350,
+      "assetId": 69,
+      "type": "UPDATE",
+      "amount": 16498,
+      "timestamp": 1780304400835,
+      "destinationAssetId": null,
+      "exchangeRate": null,
+      "notes": null
+    },
+    {
+      "id": 351,
+      "assetId": 87,
+      "type": "UPDATE",
+      "amount": 31407,
+      "timestamp": 1780304400827,
+      "destinationAssetId": null,
+      "exchangeRate": null,
+      "notes": null
+    },
+    {
+      "id": 352,
+      "assetId": 81,
+      "type": "UPDATE",
+      "amount": 146311,
+      "timestamp": 1780304400738,
+      "destinationAssetId": null,
+      "exchangeRate": null,
+      "notes": null
+    },
+    {
+      "id": 353,
+      "assetId": 61,
+      "type": "UPDATE",
+      "amount": 551491,
+      "timestamp": 1780304400665,
+      "destinationAssetId": null,
+      "exchangeRate": null,
+      "notes": null
+    },
+    {
+      "id": 354,
+      "assetId": 70,
+      "type": "UPDATE",
+      "amount": 52540,
+      "timestamp": 1780304400634,
+      "destinationAssetId": null,
+      "exchangeRate": null,
+      "notes": null
+    },
+    {
+      "id": 355,
+      "assetId": 57,
+      "type": "UPDATE",
+      "amount": 522102,
+      "timestamp": 1780304400597,
+      "destinationAssetId": null,
+      "exchangeRate": null,
+      "notes": null
+    },
+    {
+      "id": 356,
+      "assetId": 59,
+      "type": "UPDATE",
+      "amount": 48068,
+      "timestamp": 1780304400373,
+      "destinationAssetId": null,
+      "exchangeRate": null,
+      "notes": null
+    },
+    {
+      "id": 357,
+      "assetId": 94,
+      "type": "UPDATE",
+      "amount": 972778,
+      "timestamp": 1780304400352,
+      "destinationAssetId": null,
+      "exchangeRate": null,
+      "notes": null
+    },
+    {
+      "id": 358,
+      "assetId": 92,
+      "type": "UPDATE",
+      "amount": 99976,
+      "timestamp": 1780304400336,
+      "destinationAssetId": null,
+      "exchangeRate": null,
+      "notes": null
+    },
+    {
+      "id": 359,
+      "assetId": 68,
+      "type": "UPDATE",
+      "amount": 197535,
+      "timestamp": 1780304400298,
+      "destinationAssetId": null,
+      "exchangeRate": null,
+      "notes": null
+    },
+    {
+      "id": 360,
+      "assetId": 93,
+      "type": "UPDATE",
+      "amount": 550542,
+      "timestamp": 1780304400242,
+      "destinationAssetId": null,
+      "exchangeRate": null,
+      "notes": null
+    },
+    {
+      "id": 361,
+      "assetId": 88,
+      "type": "UPDATE",
+      "amount": 22952,
+      "timestamp": 1780304400165,
+      "destinationAssetId": null,
+      "exchangeRate": null,
+      "notes": null
+    },
+    {
+      "id": 362,
+      "assetId": 64,
+      "type": "INCOME",
+      "amount": 992.35,
+      "timestamp": 1780304400144,
+      "destinationAssetId": null,
+      "exchangeRate": null,
+      "notes": "RCR"
+    },
+    {
+      "id": 363,
+      "assetId": 54,
+      "type": "UPDATE",
+      "amount": 102514,
+      "timestamp": 1780304400111,
+      "destinationAssetId": null,
+      "exchangeRate": null,
+      "notes": null
+    },
+    {
+      "id": 364,
+      "assetId": 78,
+      "type": "UPDATE",
+      "amount": 241711,
+      "timestamp": 1780304400019,
+      "destinationAssetId": null,
+      "exchangeRate": null,
+      "notes": null
+    },
+    {
+      "id": 365,
+      "assetId": 81,
+      "type": "DEPOSIT",
+      "amount": 15000,
+      "timestamp": 1779958800474,
+      "destinationAssetId": null,
+      "exchangeRate": null,
+      "notes": null
+    },
+    {
+      "id": 367,
+      "assetId": 64,
+      "type": "DEPOSIT",
+      "amount": 20000,
+      "timestamp": 1779699600743,
+      "destinationAssetId": null,
+      "exchangeRate": null,
+      "notes": null
+    },
+    {
+      "id": 368,
+      "assetId": 64,
+      "type": "DEPOSIT",
+      "amount": 50000,
+      "timestamp": 1779699600267,
+      "destinationAssetId": null,
+      "exchangeRate": null,
+      "notes": null
+    },
+    {
+      "id": 369,
+      "assetId": 69,
+      "type": "INCOME",
+      "amount": 7.43,
+      "timestamp": 1778835600562,
+      "destinationAssetId": null,
+      "exchangeRate": null,
+      "notes": "O"
+    },
+    {
+      "id": 370,
+      "assetId": 57,
+      "type": "UPDATE",
+      "amount": 522523,
+      "timestamp": 1777626000996,
+      "destinationAssetId": null,
+      "exchangeRate": null,
+      "notes": null
+    },
+    {
+      "id": 371,
+      "assetId": 62,
+      "type": "UPDATE",
+      "amount": 2017,
+      "timestamp": 1777626000925,
+      "destinationAssetId": null,
+      "exchangeRate": null,
+      "notes": null
+    },
+    {
+      "id": 372,
+      "assetId": 61,
+      "type": "UPDATE",
+      "amount": 551488,
+      "timestamp": 1777626000860,
+      "destinationAssetId": null,
+      "exchangeRate": null,
+      "notes": null
+    },
+    {
+      "id": 373,
+      "assetId": 79,
+      "type": "UPDATE",
+      "amount": 2503718,
+      "timestamp": 1777626000852,
+      "destinationAssetId": null,
+      "exchangeRate": null,
+      "notes": null
+    },
+    {
+      "id": 374,
+      "assetId": 72,
+      "type": "UPDATE",
+      "amount": 466816,
+      "timestamp": 1777626000811,
+      "destinationAssetId": null,
+      "exchangeRate": null,
+      "notes": null
+    },
+    {
+      "id": 375,
+      "assetId": 60,
+      "type": "UPDATE",
+      "amount": 1039,
+      "timestamp": 1777626000733,
+      "destinationAssetId": null,
+      "exchangeRate": null,
+      "notes": null
+    },
+    {
+      "id": 376,
+      "assetId": 54,
+      "type": "UPDATE",
+      "amount": 102186,
+      "timestamp": 1777626000686,
+      "destinationAssetId": null,
+      "exchangeRate": null,
+      "notes": null
+    },
+    {
+      "id": 377,
+      "assetId": 63,
+      "type": "UPDATE",
+      "amount": 49221.96,
+      "timestamp": 1777626000660,
+      "destinationAssetId": null,
+      "exchangeRate": null,
+      "notes": null
+    },
+    {
+      "id": 378,
+      "assetId": 70,
+      "type": "UPDATE",
+      "amount": 44383,
+      "timestamp": 1777626000573,
+      "destinationAssetId": null,
+      "exchangeRate": null,
+      "notes": null
+    },
+    {
+      "id": 379,
+      "assetId": 81,
+      "type": "UPDATE",
+      "amount": 172323,
+      "timestamp": 1777626000570,
+      "destinationAssetId": null,
+      "exchangeRate": null,
+      "notes": null
+    },
+    {
+      "id": 380,
+      "assetId": 69,
+      "type": "UPDATE",
+      "amount": 16211,
+      "timestamp": 1777626000378,
+      "destinationAssetId": null,
+      "exchangeRate": null,
+      "notes": null
+    },
+    {
+      "id": 381,
+      "assetId": 89,
+      "type": "DEPOSIT",
+      "amount": 5000,
+      "timestamp": 1777626000352,
+      "destinationAssetId": null,
+      "exchangeRate": null,
+      "notes": null
+    },
+    {
+      "id": 382,
+      "assetId": 85,
+      "type": "UPDATE",
+      "amount": 107400,
+      "timestamp": 1777626000339,
+      "destinationAssetId": null,
+      "exchangeRate": null,
+      "notes": null
+    },
+    {
+      "id": 383,
+      "assetId": 68,
+      "type": "UPDATE",
+      "amount": 194149,
+      "timestamp": 1777626000215,
+      "destinationAssetId": null,
+      "exchangeRate": null,
+      "notes": null
+    },
+    {
+      "id": 384,
+      "assetId": 94,
+      "type": "UPDATE",
+      "amount": 970859.33,
+      "timestamp": 1777626000177,
+      "destinationAssetId": null,
+      "exchangeRate": null,
+      "notes": null
+    },
+    {
+      "id": 385,
+      "assetId": 93,
+      "type": "UPDATE",
+      "amount": 542504,
+      "timestamp": 1777626000052,
+      "destinationAssetId": null,
+      "exchangeRate": null,
+      "notes": null
+    },
+    {
+      "id": 386,
+      "assetId": 78,
+      "type": "UPDATE",
+      "amount": 241185,
+      "timestamp": 1777626000051,
+      "destinationAssetId": null,
+      "exchangeRate": null,
+      "notes": null
+    },
+    {
+      "id": 387,
+      "assetId": 56,
+      "type": "WITHDRAWAL",
+      "amount": 556,
+      "timestamp": 1777453200432,
+      "destinationAssetId": null,
+      "exchangeRate": null,
+      "notes": "Leisure > Shopping | Shopee"
+    },
+    {
+      "id": 388,
+      "assetId": 70,
+      "type": "DEPOSIT",
+      "amount": 1200,
+      "timestamp": 1777280400752,
+      "destinationAssetId": null,
+      "exchangeRate": null,
+      "notes": null
+    },
+    {
+      "id": 389,
+      "assetId": 56,
+      "type": "WITHDRAWAL",
+      "amount": 137,
+      "timestamp": 1776848400050,
+      "destinationAssetId": null,
+      "exchangeRate": null,
+      "notes": "Leisure > Hobby | Adapter"
+    },
+    {
+      "id": 390,
+      "assetId": 69,
+      "type": "INCOME",
+      "amount": 7.42,
+      "timestamp": 1776330000019,
+      "destinationAssetId": null,
+      "exchangeRate": null,
+      "notes": "O"
+    },
+    {
+      "id": 391,
+      "assetId": 54,
+      "type": "UPDATE",
+      "amount": 101796,
+      "timestamp": 1775034000878,
+      "destinationAssetId": null,
+      "exchangeRate": null,
+      "notes": null
+    },
+    {
+      "id": 392,
+      "assetId": 69,
+      "type": "UPDATE",
+      "amount": 15230.97,
+      "timestamp": 1775034000852,
+      "destinationAssetId": null,
+      "exchangeRate": null,
+      "notes": null
+    },
+    {
+      "id": 393,
+      "assetId": 61,
+      "type": "UPDATE",
+      "amount": 550534.68,
+      "timestamp": 1775034000706,
+      "destinationAssetId": null,
+      "exchangeRate": null,
+      "notes": null
+    },
+    {
+      "id": 394,
+      "assetId": 94,
+      "type": "UPDATE",
+      "amount": 968920.31,
+      "timestamp": 1775034000588,
+      "destinationAssetId": null,
+      "exchangeRate": null,
+      "notes": null
+    },
+    {
+      "id": 395,
+      "assetId": 56,
+      "type": "DEPOSIT",
+      "amount": 4308,
+      "timestamp": 1775034000533,
+      "destinationAssetId": null,
+      "exchangeRate": null,
+      "notes": "[Income] | "
+    },
+    {
+      "id": 396,
+      "assetId": 81,
+      "type": "UPDATE",
+      "amount": 156422.74,
+      "timestamp": 1775034000499,
+      "destinationAssetId": null,
+      "exchangeRate": null,
+      "notes": null
+    },
+    {
+      "id": 397,
+      "assetId": 79,
+      "type": "UPDATE",
+      "amount": 2494861.37,
+      "timestamp": 1775034000294,
+      "destinationAssetId": null,
+      "exchangeRate": null,
+      "notes": null
+    },
+    {
+      "id": 398,
+      "assetId": 72,
+      "type": "UPDATE",
+      "amount": 434378.62,
+      "timestamp": 1775034000245,
+      "destinationAssetId": null,
+      "exchangeRate": null,
+      "notes": null
+    },
+    {
+      "id": 399,
+      "assetId": 78,
+      "type": "DEPOSIT",
+      "amount": 100000,
+      "timestamp": 1775034000198,
+      "destinationAssetId": null,
+      "exchangeRate": null,
+      "notes": null
+    },
+    {
+      "id": 400,
+      "assetId": 70,
+      "type": "UPDATE",
+      "amount": 39579,
+      "timestamp": 1775034000194,
+      "destinationAssetId": null,
+      "exchangeRate": null,
+      "notes": null
+    },
+    {
+      "id": 401,
+      "assetId": 68,
+      "type": "UPDATE",
+      "amount": 183533.43,
+      "timestamp": 1775034000112,
+      "destinationAssetId": null,
+      "exchangeRate": null,
+      "notes": null
+    },
+    {
+      "id": 402,
+      "assetId": 57,
+      "type": "UPDATE",
+      "amount": 521903,
+      "timestamp": 1775034000050,
+      "destinationAssetId": null,
+      "exchangeRate": null,
+      "notes": null
+    },
+    {
+      "id": 403,
+      "assetId": 70,
+      "type": "DEPOSIT",
+      "amount": 4000,
+      "timestamp": 1774515600459,
+      "destinationAssetId": null,
+      "exchangeRate": null,
+      "notes": null
+    },
+    {
+      "id": 404,
+      "assetId": 76,
+      "type": "UPDATE",
+      "amount": 5501772.37,
+      "timestamp": 1774429200172,
+      "destinationAssetId": null,
+      "exchangeRate": null,
+      "notes": null
+    },
+    {
+      "id": 405,
+      "assetId": 81,
+      "type": "DEPOSIT",
+      "amount": 18000,
+      "timestamp": 1773997200974,
+      "destinationAssetId": null,
+      "exchangeRate": null,
+      "notes": null
+    },
+    {
+      "id": 406,
+      "assetId": 70,
+      "type": "DEPOSIT",
+      "amount": 14000,
+      "timestamp": 1773306000264,
+      "destinationAssetId": null,
+      "exchangeRate": null,
+      "notes": "bonus"
+    },
+    {
+      "id": 407,
+      "assetId": 77,
+      "type": "UPDATE",
+      "amount": 5330164.31,
+      "timestamp": 1772701200037,
+      "destinationAssetId": null,
+      "exchangeRate": null,
+      "notes": null
+    },
+    {
+      "id": 408,
+      "assetId": 65,
+      "type": "DEPOSIT",
+      "amount": 200000,
+      "timestamp": 1772355600996,
+      "destinationAssetId": null,
+      "exchangeRate": null,
+      "notes": null
+    },
+    {
+      "id": 409,
+      "assetId": 72,
+      "type": "UPDATE",
+      "amount": 447185,
+      "timestamp": 1772355600985,
+      "destinationAssetId": null,
+      "exchangeRate": null,
+      "notes": null
+    },
+    {
+      "id": 410,
+      "assetId": 54,
+      "type": "UPDATE",
+      "amount": 101557,
+      "timestamp": 1772355600978,
+      "destinationAssetId": null,
+      "exchangeRate": null,
+      "notes": null
+    },
+    {
+      "id": 411,
+      "assetId": 69,
+      "type": "UPDATE",
+      "amount": 16073,
+      "timestamp": 1772355600951,
+      "destinationAssetId": null,
+      "exchangeRate": null,
+      "notes": null
+    },
+    {
+      "id": 412,
+      "assetId": 83,
+      "type": "UPDATE",
+      "amount": 561236.64,
+      "timestamp": 1772355600896,
+      "destinationAssetId": null,
+      "exchangeRate": null,
+      "notes": null
+    },
+    {
+      "id": 413,
+      "assetId": 62,
+      "type": "UPDATE",
+      "amount": 2005,
+      "timestamp": 1772355600849,
+      "destinationAssetId": null,
+      "exchangeRate": null,
+      "notes": null
+    },
+    {
+      "id": 414,
+      "assetId": 79,
+      "type": "UPDATE",
+      "amount": 2486314.94,
+      "timestamp": 1772355600764,
+      "destinationAssetId": null,
+      "exchangeRate": null,
+      "notes": null
+    },
+    {
+      "id": 415,
+      "assetId": 94,
+      "type": "UPDATE",
+      "amount": 967071.43,
+      "timestamp": 1772355600664,
+      "destinationAssetId": null,
+      "exchangeRate": null,
+      "notes": null
+    },
+    {
+      "id": 416,
+      "assetId": 61,
+      "type": "UPDATE",
+      "amount": 549550.38,
+      "timestamp": 1772355600375,
+      "destinationAssetId": null,
+      "exchangeRate": null,
+      "notes": null
+    },
+    {
+      "id": 417,
+      "assetId": 68,
+      "type": "UPDATE",
+      "amount": 185811.17,
+      "timestamp": 1772355600241,
+      "destinationAssetId": null,
+      "exchangeRate": null,
+      "notes": null
+    },
+    {
+      "id": 418,
+      "assetId": 57,
+      "type": "UPDATE",
+      "amount": 523799,
+      "timestamp": 1772355600240,
+      "destinationAssetId": null,
+      "exchangeRate": null,
+      "notes": null
+    },
+    {
+      "id": 419,
+      "assetId": 70,
+      "type": "UPDATE",
+      "amount": 21384.71,
+      "timestamp": 1772355600191,
+      "destinationAssetId": null,
+      "exchangeRate": null,
+      "notes": null
+    },
+    {
+      "id": 420,
+      "assetId": 78,
+      "type": "UPDATE",
+      "amount": 139649,
+      "timestamp": 1772355600027,
+      "destinationAssetId": null,
+      "exchangeRate": null,
+      "notes": null
+    },
+    {
+      "id": 421,
+      "assetId": 70,
+      "type": "DEPOSIT",
+      "amount": 3000,
+      "timestamp": 1772096400069,
+      "destinationAssetId": null,
+      "exchangeRate": null,
+      "notes": null
+    },
+    {
+      "id": 422,
+      "assetId": 81,
+      "type": "DEPOSIT",
+      "amount": 20000,
+      "timestamp": 1771837200543,
+      "destinationAssetId": null,
+      "exchangeRate": null,
+      "notes": null
+    },
+    {
+      "id": 423,
+      "assetId": 70,
+      "type": "UPDATE",
+      "amount": 18072,
+      "timestamp": 1770022800187,
+      "destinationAssetId": null,
+      "exchangeRate": null,
+      "notes": null
+    },
+    {
+      "id": 424,
+      "assetId": 78,
+      "type": "UPDATE",
+      "amount": 139371,
+      "timestamp": 1769936400961,
+      "destinationAssetId": null,
+      "exchangeRate": null,
+      "notes": null
+    },
+    {
+      "id": 425,
+      "assetId": 93,
+      "type": "UPDATE",
+      "amount": 540171.56,
+      "timestamp": 1769936400760,
+      "destinationAssetId": null,
+      "exchangeRate": null,
+      "notes": null
+    },
+    {
+      "id": 426,
+      "assetId": 57,
+      "type": "UPDATE",
+      "amount": 522288,
+      "timestamp": 1769936400666,
+      "destinationAssetId": null,
+      "exchangeRate": null,
+      "notes": null
+    },
+    {
+      "id": 427,
+      "assetId": 61,
+      "type": "UPDATE",
+      "amount": 548662.76,
+      "timestamp": 1769936400628,
+      "destinationAssetId": null,
+      "exchangeRate": null,
+      "notes": null
+    },
+    {
+      "id": 428,
+      "assetId": 72,
+      "type": "UPDATE",
+      "amount": 437018,
+      "timestamp": 1769936400612,
+      "destinationAssetId": null,
+      "exchangeRate": null,
+      "notes": null
+    },
+    {
+      "id": 429,
+      "assetId": 94,
+      "type": "UPDATE",
+      "amount": 965191.85,
+      "timestamp": 1769936400419,
+      "destinationAssetId": null,
+      "exchangeRate": null,
+      "notes": null
+    },
+    {
+      "id": 430,
+      "assetId": 69,
+      "type": "UPDATE",
+      "amount": 15196,
+      "timestamp": 1769936400279,
+      "destinationAssetId": null,
+      "exchangeRate": null,
+      "notes": null
+    },
+    {
+      "id": 431,
+      "assetId": 79,
+      "type": "UPDATE",
+      "amount": 2477584.35,
+      "timestamp": 1769936400202,
+      "destinationAssetId": null,
+      "exchangeRate": null,
+      "notes": null
+    },
+    {
+      "id": 432,
+      "assetId": 68,
+      "type": "UPDATE",
+      "amount": 187986,
+      "timestamp": 1769936400158,
+      "destinationAssetId": null,
+      "exchangeRate": null,
+      "notes": null
+    },
+    {
+      "id": 433,
+      "assetId": 54,
+      "type": "UPDATE",
+      "amount": 101273,
+      "timestamp": 1769936400015,
+      "destinationAssetId": null,
+      "exchangeRate": null,
+      "notes": null
+    },
+    {
+      "id": 434,
+      "assetId": 64,
+      "type": "DEPOSIT",
+      "amount": 1074000,
+      "timestamp": 1769763600517,
+      "destinationAssetId": null,
+      "exchangeRate": null,
+      "notes": null
+    },
+    {
+      "id": 435,
+      "assetId": 70,
+      "type": "DEPOSIT",
+      "amount": 2500,
+      "timestamp": 1769677200551,
+      "destinationAssetId": null,
+      "exchangeRate": null,
+      "notes": null
+    },
+    {
+      "id": 436,
+      "assetId": 78,
+      "type": "TRANSFER",
+      "amount": 200000,
+      "timestamp": 1769158800214,
+      "destinationAssetId": 94,
+      "exchangeRate": null,
+      "notes": "Transfer to Uno"
+    },
+    {
+      "id": 437,
+      "assetId": 78,
+      "type": "TRANSFER",
+      "amount": 200000,
+      "timestamp": 1769072400307,
+      "destinationAssetId": 94,
+      "exchangeRate": null,
+      "notes": "Transfer to Uno"
+    },
+    {
+      "id": 438,
+      "assetId": 81,
+      "type": "UPDATE",
+      "amount": 125288,
+      "timestamp": 1768381200102,
+      "destinationAssetId": null,
+      "exchangeRate": null,
+      "notes": null
+    },
+    {
+      "id": 439,
+      "assetId": 57,
+      "type": "UPDATE",
+      "amount": 520305,
+      "timestamp": 1767258000917,
+      "destinationAssetId": null,
+      "exchangeRate": null,
+      "notes": null
+    },
+    {
+      "id": 440,
+      "assetId": 68,
+      "type": "UPDATE",
+      "amount": 182826,
+      "timestamp": 1767258000894,
+      "destinationAssetId": null,
+      "exchangeRate": null,
+      "notes": null
+    },
+    {
+      "id": 441,
+      "assetId": 61,
+      "type": "UPDATE",
+      "amount": 547684.3,
+      "timestamp": 1767258000775,
+      "destinationAssetId": null,
+      "exchangeRate": null,
+      "notes": null
+    },
+    {
+      "id": 442,
+      "assetId": 94,
+      "type": "UPDATE",
+      "amount": 563226.98,
+      "timestamp": 1767258000727,
+      "destinationAssetId": null,
+      "exchangeRate": null,
+      "notes": null
+    },
+    {
+      "id": 443,
+      "assetId": 78,
+      "type": "UPDATE",
+      "amount": 538396.65,
+      "timestamp": 1767258000656,
+      "destinationAssetId": null,
+      "exchangeRate": null,
+      "notes": null
+    },
+    {
+      "id": 444,
+      "assetId": 70,
+      "type": "UPDATE",
+      "amount": 15121.55,
+      "timestamp": 1767258000654,
+      "destinationAssetId": null,
+      "exchangeRate": null,
+      "notes": null
+    },
+    {
+      "id": 445,
+      "assetId": 81,
+      "type": "DEPOSIT",
+      "amount": 40000,
+      "timestamp": 1767258000286,
+      "destinationAssetId": null,
+      "exchangeRate": null,
+      "notes": null
+    },
+    {
+      "id": 446,
+      "assetId": 69,
+      "type": "UPDATE",
+      "amount": 14322,
+      "timestamp": 1767258000278,
+      "destinationAssetId": null,
+      "exchangeRate": null,
+      "notes": null
+    },
+    {
+      "id": 447,
+      "assetId": 72,
+      "type": "UPDATE",
+      "amount": 425817,
+      "timestamp": 1767258000234,
+      "destinationAssetId": null,
+      "exchangeRate": null,
+      "notes": null
+    },
+    {
+      "id": 448,
+      "assetId": 54,
+      "type": "UPDATE",
+      "amount": 100945,
+      "timestamp": 1767258000079,
+      "destinationAssetId": null,
+      "exchangeRate": null,
+      "notes": null
+    },
+    {
+      "id": 449,
+      "assetId": 81,
+      "type": "DEPOSIT",
+      "amount": 20000,
+      "timestamp": 1767085200474,
+      "destinationAssetId": null,
+      "exchangeRate": null,
+      "notes": null
+    },
+    {
+      "id": 450,
+      "assetId": 62,
+      "type": "UPDATE",
+      "amount": 1948,
+      "timestamp": 1767085200240,
+      "destinationAssetId": null,
+      "exchangeRate": null,
+      "notes": null
+    },
+    {
+      "id": 451,
+      "assetId": 70,
+      "type": "DEPOSIT",
+      "amount": 2000,
+      "timestamp": 1766998800609,
+      "destinationAssetId": null,
+      "exchangeRate": null,
+      "notes": null
+    },
+    {
+      "id": 452,
+      "assetId": 81,
+      "type": "UPDATE",
+      "amount": 88570,
+      "timestamp": 1766048400769,
+      "destinationAssetId": null,
+      "exchangeRate": null,
+      "notes": null
+    },
+    {
+      "id": 453,
+      "assetId": 79,
+      "type": "DEPOSIT",
+      "amount": 100000,
+      "timestamp": 1765789200535,
+      "destinationAssetId": null,
+      "exchangeRate": null,
+      "notes": null
+    },
+    {
+      "id": 454,
+      "assetId": 81,
+      "type": "DEPOSIT",
+      "amount": 10000,
+      "timestamp": 1765702800707,
+      "destinationAssetId": null,
+      "exchangeRate": null,
+      "notes": null
+    },
+    {
+      "id": 455,
+      "assetId": 64,
+      "type": "DEPOSIT",
+      "amount": 100000,
+      "timestamp": 1764666000898,
+      "destinationAssetId": null,
+      "exchangeRate": null,
+      "notes": null
+    },
+    {
+      "id": 456,
+      "assetId": 79,
+      "type": "UPDATE",
+      "amount": 2377169.94,
+      "timestamp": 1764666000632,
+      "destinationAssetId": null,
+      "exchangeRate": null,
+      "notes": null
+    },
+    {
+      "id": 457,
+      "assetId": 68,
+      "type": "UPDATE",
+      "amount": 182481,
+      "timestamp": 1764579600991,
+      "destinationAssetId": null,
+      "exchangeRate": null,
+      "notes": null
+    },
+    {
+      "id": 458,
+      "assetId": 72,
+      "type": "UPDATE",
+      "amount": 418591,
+      "timestamp": 1764579600990,
+      "destinationAssetId": null,
+      "exchangeRate": null,
+      "notes": null
+    },
+    {
+      "id": 459,
+      "assetId": 70,
+      "type": "UPDATE",
+      "amount": 13167,
+      "timestamp": 1764579600986,
+      "destinationAssetId": null,
+      "exchangeRate": null,
+      "notes": null
+    },
+    {
+      "id": 460,
+      "assetId": 61,
+      "type": "UPDATE",
+      "amount": 546707,
+      "timestamp": 1764579600842,
+      "destinationAssetId": null,
+      "exchangeRate": null,
+      "notes": null
+    },
+    {
+      "id": 461,
+      "assetId": 83,
+      "type": "UPDATE",
+      "amount": 534421,
+      "timestamp": 1764579600821,
+      "destinationAssetId": null,
+      "exchangeRate": null,
+      "notes": null
+    },
+    {
+      "id": 462,
+      "assetId": 78,
+      "type": "UPDATE",
+      "amount": 537117,
+      "timestamp": 1764579600728,
+      "destinationAssetId": null,
+      "exchangeRate": null,
+      "notes": null
+    },
+    {
+      "id": 463,
+      "assetId": 93,
+      "type": "UPDATE",
+      "amount": 537979,
+      "timestamp": 1764579600667,
+      "destinationAssetId": null,
+      "exchangeRate": null,
+      "notes": null
+    },
+    {
+      "id": 464,
+      "assetId": 94,
+      "type": "UPDATE",
+      "amount": 561301.49,
+      "timestamp": 1764579600641,
+      "destinationAssetId": null,
+      "exchangeRate": null,
+      "notes": null
+    },
+    {
+      "id": 465,
+      "assetId": 54,
+      "type": "UPDATE",
+      "amount": 100635,
+      "timestamp": 1764579600626,
+      "destinationAssetId": null,
+      "exchangeRate": null,
+      "notes": null
+    },
+    {
+      "id": 466,
+      "assetId": 57,
+      "type": "UPDATE",
+      "amount": 518818,
+      "timestamp": 1764579600612,
+      "destinationAssetId": null,
+      "exchangeRate": null,
+      "notes": null
+    },
+    {
+      "id": 467,
+      "assetId": 69,
+      "type": "UPDATE",
+      "amount": 14288,
+      "timestamp": 1764579600227,
+      "destinationAssetId": null,
+      "exchangeRate": null,
+      "notes": null
+    },
+    {
+      "id": 468,
+      "assetId": 70,
+      "type": "DEPOSIT",
+      "amount": 2000,
+      "timestamp": 1764493200857,
+      "destinationAssetId": null,
+      "exchangeRate": null,
+      "notes": null
+    },
+    {
+      "id": 469,
+      "assetId": 79,
+      "type": "DEPOSIT",
+      "amount": 20000,
+      "timestamp": 1764493200471,
+      "destinationAssetId": null,
+      "exchangeRate": null,
+      "notes": null
+    },
+    {
+      "id": 470,
+      "assetId": 78,
+      "type": "WITHDRAWAL",
+      "amount": 19,
+      "timestamp": 1763542800580,
+      "destinationAssetId": null,
+      "exchangeRate": null,
+      "notes": "Leisure > Shopping | Shoppee Reward payment"
+    },
+    {
+      "id": 471,
+      "assetId": 81,
+      "type": "UPDATE",
+      "amount": 82597,
+      "timestamp": 1762419600624,
+      "destinationAssetId": null,
+      "exchangeRate": null,
+      "notes": null
+    },
+    {
+      "id": 472,
+      "assetId": 72,
+      "type": "UPDATE",
+      "amount": 412441,
+      "timestamp": 1762333200852,
+      "destinationAssetId": null,
+      "exchangeRate": null,
+      "notes": null
+    },
+    {
+      "id": 473,
+      "assetId": 70,
+      "type": "UPDATE",
+      "amount": 10835,
+      "timestamp": 1762333200522,
+      "destinationAssetId": null,
+      "exchangeRate": null,
+      "notes": null
+    },
+    {
+      "id": 474,
+      "assetId": 94,
+      "type": "UPDATE",
+      "amount": 559367,
+      "timestamp": 1761987600988,
+      "destinationAssetId": null,
+      "exchangeRate": null,
+      "notes": null
+    },
+    {
+      "id": 475,
+      "assetId": 78,
+      "type": "UPDATE",
+      "amount": 535798,
+      "timestamp": 1761987600924,
+      "destinationAssetId": null,
+      "exchangeRate": null,
+      "notes": null
+    },
+    {
+      "id": 476,
+      "assetId": 68,
+      "type": "UPDATE",
+      "amount": 182911,
+      "timestamp": 1761987600854,
+      "destinationAssetId": null,
+      "exchangeRate": null,
+      "notes": null
+    },
+    {
+      "id": 477,
+      "assetId": 69,
+      "type": "UPDATE",
+      "amount": 14053,
+      "timestamp": 1761987600686,
+      "destinationAssetId": null,
+      "exchangeRate": null,
+      "notes": null
+    },
+    {
+      "id": 478,
+      "assetId": 54,
+      "type": "UPDATE",
+      "amount": 100308,
+      "timestamp": 1761987600655,
+      "destinationAssetId": null,
+      "exchangeRate": null,
+      "notes": null
+    },
+    {
+      "id": 479,
+      "assetId": 57,
+      "type": "UPDATE",
+      "amount": 516737,
+      "timestamp": 1761987600546,
+      "destinationAssetId": null,
+      "exchangeRate": null,
+      "notes": null
+    },
+    {
+      "id": 480,
+      "assetId": 79,
+      "type": "UPDATE",
+      "amount": 2347288,
+      "timestamp": 1761987600270,
+      "destinationAssetId": null,
+      "exchangeRate": null,
+      "notes": null
+    },
+    {
+      "id": 481,
+      "assetId": 81,
+      "type": "DEPOSIT",
+      "amount": 15000,
+      "timestamp": 1761987600116,
+      "destinationAssetId": null,
+      "exchangeRate": null,
+      "notes": null
+    },
+    {
+      "id": 482,
+      "assetId": 61,
+      "type": "UPDATE",
+      "amount": 545762.92,
+      "timestamp": 1761987600087,
+      "destinationAssetId": null,
+      "exchangeRate": null,
+      "notes": null
+    },
+    {
+      "id": 483,
+      "assetId": 64,
+      "type": "DEPOSIT",
+      "amount": 100000,
+      "timestamp": 1761901200818,
+      "destinationAssetId": null,
+      "exchangeRate": null,
+      "notes": null
+    },
+    {
+      "id": 484,
+      "assetId": 70,
+      "type": "DEPOSIT",
+      "amount": 2000,
+      "timestamp": 1761901200258,
+      "destinationAssetId": null,
+      "exchangeRate": null,
+      "notes": null
+    },
+    {
+      "id": 485,
+      "assetId": 72,
+      "type": "UPDATE",
+      "amount": 413567,
+      "timestamp": 1759654800377,
+      "destinationAssetId": null,
+      "exchangeRate": null,
+      "notes": null
+    },
+    {
+      "id": 486,
+      "assetId": 69,
+      "type": "UPDATE",
+      "amount": 14267,
+      "timestamp": 1759568400767,
+      "destinationAssetId": null,
+      "exchangeRate": null,
+      "notes": null
+    },
+    {
+      "id": 487,
+      "assetId": 70,
+      "type": "UPDATE",
+      "amount": 9087,
+      "timestamp": 1759568400394,
+      "destinationAssetId": null,
+      "exchangeRate": null,
+      "notes": null
+    },
+    {
+      "id": 488,
+      "assetId": 61,
+      "type": "DEPOSIT",
+      "amount": 12518,
+      "timestamp": 1759482000180,
+      "destinationAssetId": null,
+      "exchangeRate": null,
+      "notes": null
+    },
+    {
+      "id": 489,
+      "assetId": 94,
+      "type": "UPDATE",
+      "amount": 557438.79,
+      "timestamp": 1759309200980,
+      "destinationAssetId": null,
+      "exchangeRate": null,
+      "notes": null
+    },
+    {
+      "id": 490,
+      "assetId": 54,
+      "type": "UPDATE",
+      "amount": 99888,
+      "timestamp": 1759309200659,
+      "destinationAssetId": null,
+      "exchangeRate": null,
+      "notes": null
+    },
+    {
+      "id": 491,
+      "assetId": 64,
+      "type": "DEPOSIT",
+      "amount": 200000,
+      "timestamp": 1759309200583,
+      "destinationAssetId": null,
+      "exchangeRate": null,
+      "notes": null
+    },
+    {
+      "id": 492,
+      "assetId": 78,
+      "type": "UPDATE",
+      "amount": 534524.88,
+      "timestamp": 1759309200418,
+      "destinationAssetId": null,
+      "exchangeRate": null,
+      "notes": null
+    },
+    {
+      "id": 493,
+      "assetId": 81,
+      "type": "UPDATE",
+      "amount": 95895,
+      "timestamp": 1759309200382,
+      "destinationAssetId": null,
+      "exchangeRate": null,
+      "notes": null
+    },
+    {
+      "id": 494,
+      "assetId": 57,
+      "type": "UPDATE",
+      "amount": 514878,
+      "timestamp": 1759309200329,
+      "destinationAssetId": null,
+      "exchangeRate": null,
+      "notes": null
+    },
+    {
+      "id": 495,
+      "assetId": 68,
+      "type": "UPDATE",
+      "amount": 178845,
+      "timestamp": 1759309200310,
+      "destinationAssetId": null,
+      "exchangeRate": null,
+      "notes": null
+    },
+    {
+      "id": 496,
+      "assetId": 93,
+      "type": "UPDATE",
+      "amount": 537777,
+      "timestamp": 1759309200255,
+      "destinationAssetId": null,
+      "exchangeRate": null,
+      "notes": null
+    },
+    {
+      "id": 497,
+      "assetId": 69,
+      "type": "UPDATE",
+      "amount": 14010,
+      "timestamp": 1756717200930,
+      "destinationAssetId": null,
+      "exchangeRate": null,
+      "notes": null
+    },
+    {
+      "id": 498,
+      "assetId": 61,
+      "type": "UPDATE",
+      "amount": 532060.32,
+      "timestamp": 1756717200842,
+      "destinationAssetId": null,
+      "exchangeRate": null,
+      "notes": null
+    },
+    {
+      "id": 499,
+      "assetId": 93,
+      "type": "UPDATE",
+      "amount": 535663.63,
+      "timestamp": 1756717200732,
+      "destinationAssetId": null,
+      "exchangeRate": null,
+      "notes": null
+    },
+    {
+      "id": 500,
+      "assetId": 54,
+      "type": "UPDATE",
+      "amount": 99563,
+      "timestamp": 1756717200724,
+      "destinationAssetId": null,
+      "exchangeRate": null,
+      "notes": null
+    },
+    {
+      "id": 501,
+      "assetId": 94,
+      "type": "UPDATE",
+      "amount": 555497.46,
+      "timestamp": 1756717200565,
+      "destinationAssetId": null,
+      "exchangeRate": null,
+      "notes": null
+    },
+    {
+      "id": 502,
+      "assetId": 68,
+      "type": "UPDATE",
+      "amount": 175003,
+      "timestamp": 1756717200538,
+      "destinationAssetId": null,
+      "exchangeRate": null,
+      "notes": null
+    },
+    {
+      "id": 503,
+      "assetId": 79,
+      "type": "UPDATE",
+      "amount": 2329238.93,
+      "timestamp": 1756717200501,
+      "destinationAssetId": null,
+      "exchangeRate": null,
+      "notes": null
+    },
+    {
+      "id": 504,
+      "assetId": 70,
+      "type": "UPDATE",
+      "amount": 8986,
+      "timestamp": 1756717200466,
+      "destinationAssetId": null,
+      "exchangeRate": null,
+      "notes": null
+    },
+    {
+      "id": 505,
+      "assetId": 81,
+      "type": "UPDATE",
+      "amount": 96320,
+      "timestamp": 1756717200309,
+      "destinationAssetId": null,
+      "exchangeRate": null,
+      "notes": null
+    },
+    {
+      "id": 506,
+      "assetId": 78,
+      "type": "UPDATE",
+      "amount": 533296.21,
+      "timestamp": 1756717200056,
+      "destinationAssetId": null,
+      "exchangeRate": null,
+      "notes": null
+    },
+    {
+      "id": 507,
+      "assetId": 72,
+      "type": "UPDATE",
+      "amount": 404265,
+      "timestamp": 1756717200017,
+      "destinationAssetId": null,
+      "exchangeRate": null,
+      "notes": null
+    },
+    {
+      "id": 508,
+      "assetId": 57,
+      "type": "UPDATE",
+      "amount": 513025,
+      "timestamp": 1756717200007,
+      "destinationAssetId": null,
+      "exchangeRate": null,
+      "notes": null
+    },
+    {
+      "id": 509,
+      "assetId": 81,
+      "type": "UPDATE",
+      "amount": 93806.97,
+      "timestamp": 1754038800756,
+      "destinationAssetId": null,
+      "exchangeRate": null,
+      "notes": null
+    },
+    {
+      "id": 510,
+      "assetId": 72,
+      "type": "UPDATE",
+      "amount": 401670.99,
+      "timestamp": 1754038800737,
+      "destinationAssetId": null,
+      "exchangeRate": null,
+      "notes": null
+    },
+    {
+      "id": 511,
+      "assetId": 93,
+      "type": "UPDATE",
+      "amount": 535566.97,
+      "timestamp": 1754038800724,
+      "destinationAssetId": null,
+      "exchangeRate": null,
+      "notes": null
+    },
+    {
+      "id": 512,
+      "assetId": 69,
+      "type": "UPDATE",
+      "amount": 13412,
+      "timestamp": 1754038800599,
+      "destinationAssetId": null,
+      "exchangeRate": null,
+      "notes": null
+    },
+    {
+      "id": 513,
+      "assetId": 61,
+      "type": "UPDATE",
+      "amount": 528328.6,
+      "timestamp": 1754038800403,
+      "destinationAssetId": null,
+      "exchangeRate": null,
+      "notes": null
+    },
+    {
+      "id": 514,
+      "assetId": 68,
+      "type": "UPDATE",
+      "amount": 174552,
+      "timestamp": 1754038800204,
+      "destinationAssetId": null,
+      "exchangeRate": null,
+      "notes": null
+    },
+    {
+      "id": 515,
+      "assetId": 94,
+      "type": "UPDATE",
+      "amount": 552759.86,
+      "timestamp": 1754038800193,
+      "destinationAssetId": null,
+      "exchangeRate": null,
+      "notes": null
+    },
+    {
+      "id": 516,
+      "assetId": 57,
+      "type": "UPDATE",
+      "amount": 510802,
+      "timestamp": 1754038800051,
+      "destinationAssetId": null,
+      "exchangeRate": null,
+      "notes": null
+    },
+    {
+      "id": 517,
+      "assetId": 78,
+      "type": "UPDATE",
+      "amount": 532011.94,
+      "timestamp": 1754038800015,
+      "destinationAssetId": null,
+      "exchangeRate": null,
+      "notes": null
+    },
+    {
+      "id": 518,
+      "assetId": 64,
+      "type": "DEPOSIT",
+      "amount": 200000,
+      "timestamp": 1751878800806,
+      "destinationAssetId": null,
+      "exchangeRate": null,
+      "notes": null
+    },
+    {
+      "id": 519,
+      "assetId": 93,
+      "type": "UPDATE",
+      "amount": 533491.95,
+      "timestamp": 1751360400966,
+      "destinationAssetId": null,
+      "exchangeRate": null,
+      "notes": null
+    },
+    {
+      "id": 520,
+      "assetId": 69,
+      "type": "UPDATE",
+      "amount": 13416,
+      "timestamp": 1751360400491,
+      "destinationAssetId": null,
+      "exchangeRate": null,
+      "notes": null
+    },
+    {
+      "id": 521,
+      "assetId": 83,
+      "type": "UPDATE",
+      "amount": 531397.66,
+      "timestamp": 1751360400311,
+      "destinationAssetId": null,
+      "exchangeRate": null,
+      "notes": null
+    },
+    {
+      "id": 522,
+      "assetId": 72,
+      "type": "UPDATE",
+      "amount": 392171,
+      "timestamp": 1751360400276,
+      "destinationAssetId": null,
+      "exchangeRate": null,
+      "notes": null
+    },
+    {
+      "id": 607,
+      "assetId": 104,
+      "type": "DEPOSIT",
+      "amount": 851.01,
+      "timestamp": 1751014800924,
+      "destinationAssetId": null,
+      "exchangeRate": null,
+      "notes": null
+    },
+    {
+      "id": 523,
+      "assetId": 71,
+      "type": "DEPOSIT",
+      "amount": 445874,
+      "timestamp": 1750582800889,
+      "destinationAssetId": null,
+      "exchangeRate": null,
+      "notes": null
+    },
+    {
+      "id": 524,
+      "assetId": 58,
+      "type": "DEPOSIT",
+      "amount": 1142.74,
+      "timestamp": 1750582800298,
+      "destinationAssetId": null,
+      "exchangeRate": null,
+      "notes": null
+    },
+    {
+      "id": 525,
+      "assetId": 78,
+      "type": "UPDATE",
+      "amount": 528359.58,
+      "timestamp": 1750496400922,
+      "destinationAssetId": null,
+      "exchangeRate": null,
+      "notes": null
+    },
+    {
+      "id": 526,
+      "assetId": 62,
+      "type": "DEPOSIT",
+      "amount": 570,
+      "timestamp": 1750237200218,
+      "destinationAssetId": null,
+      "exchangeRate": null,
+      "notes": null
+    },
+    {
+      "id": 527,
+      "assetId": 64,
+      "type": "DEPOSIT",
+      "amount": 720500,
+      "timestamp": 1749200400231,
+      "destinationAssetId": null,
+      "exchangeRate": null,
+      "notes": null
+    },
+    {
+      "id": 528,
+      "assetId": 54,
+      "type": "UPDATE",
+      "amount": 99173,
+      "timestamp": 1748768400034,
+      "destinationAssetId": null,
+      "exchangeRate": null,
+      "notes": null
+    },
+    {
+      "id": 529,
+      "assetId": 62,
+      "type": "DEPOSIT",
+      "amount": 1100,
+      "timestamp": 1743498000288,
+      "destinationAssetId": null,
+      "exchangeRate": null,
+      "notes": null
+    },
+    {
+      "id": 530,
+      "assetId": 64,
+      "type": "TRANSFER",
+      "amount": 200000,
+      "timestamp": 1743238800565,
+      "destinationAssetId": 66,
+      "exchangeRate": 1,
+      "notes": null
+    },
+    {
+      "id": 531,
+      "assetId": 87,
+      "type": "DEPOSIT",
+      "amount": 30000,
+      "timestamp": 1740819600678,
+      "destinationAssetId": null,
+      "exchangeRate": null,
+      "notes": null
+    },
+    {
+      "id": 532,
+      "assetId": 76,
+      "type": "UPDATE",
+      "amount": 5137191.02,
+      "timestamp": 1735722000766,
+      "destinationAssetId": null,
+      "exchangeRate": null,
+      "notes": null
+    },
+    {
+      "id": 533,
+      "assetId": 57,
+      "type": "UPDATE",
+      "amount": 508993,
+      "timestamp": 1735722000711,
+      "destinationAssetId": null,
+      "exchangeRate": null,
+      "notes": null
+    },
+    {
+      "id": 534,
+      "assetId": 77,
+      "type": "UPDATE",
+      "amount": 4992000,
+      "timestamp": 1735722000521,
+      "destinationAssetId": null,
+      "exchangeRate": null,
+      "notes": null
+    },
+    {
+      "id": 535,
+      "assetId": 67,
+      "type": "DEPOSIT",
+      "amount": 34825.25,
+      "timestamp": 1728205200111,
+      "destinationAssetId": null,
+      "exchangeRate": null,
+      "notes": null
+    },
+    {
+      "id": 536,
+      "assetId": 68,
+      "type": "DEPOSIT",
+      "amount": 166329,
+      "timestamp": 1728118800744,
+      "destinationAssetId": null,
+      "exchangeRate": null,
+      "notes": null
+    },
+    {
+      "id": 537,
+      "assetId": 69,
+      "type": "DEPOSIT",
+      "amount": 12629.19,
+      "timestamp": 1728032400657,
+      "destinationAssetId": null,
+      "exchangeRate": null,
+      "notes": null
+    },
+    {
+      "id": 538,
+      "assetId": 70,
+      "type": "DEPOSIT",
+      "amount": 8948,
+      "timestamp": 1728032400294,
+      "destinationAssetId": null,
+      "exchangeRate": null,
+      "notes": null
+    },
+    {
+      "id": 539,
+      "assetId": 94,
+      "type": "DEPOSIT",
+      "amount": 500000,
+      "timestamp": 1728032400125,
+      "destinationAssetId": null,
+      "exchangeRate": null,
+      "notes": null
+    },
+    {
+      "id": 540,
+      "assetId": 90,
+      "type": "DEPOSIT",
+      "amount": 286436,
+      "timestamp": 1727773200278,
+      "destinationAssetId": null,
+      "exchangeRate": null,
+      "notes": null
+    },
+    {
+      "id": 541,
+      "assetId": 85,
+      "type": "DEPOSIT",
+      "amount": 100000,
+      "timestamp": 1727773200226,
+      "destinationAssetId": null,
+      "exchangeRate": null,
+      "notes": null
+    },
+    {
+      "id": 542,
+      "assetId": 79,
+      "type": "UPDATE",
+      "amount": 2319807.06,
+      "timestamp": 1725094800055,
+      "destinationAssetId": null,
+      "exchangeRate": null,
+      "notes": null
+    },
+    {
+      "id": 543,
+      "assetId": 81,
+      "type": "DEPOSIT",
+      "amount": 56403.91,
+      "timestamp": 1722502800938,
+      "destinationAssetId": null,
+      "exchangeRate": null,
+      "notes": null
+    },
+    {
+      "id": 544,
+      "assetId": 54,
+      "type": "DEPOSIT",
+      "amount": 93826.71,
+      "timestamp": 1719824400321,
+      "destinationAssetId": null,
+      "exchangeRate": null,
+      "notes": null
+    },
+    {
+      "id": 545,
+      "assetId": 88,
+      "type": "DEPOSIT",
+      "amount": 23513,
+      "timestamp": 1718960400971,
+      "destinationAssetId": null,
+      "exchangeRate": null,
+      "notes": null
+    },
+    {
+      "id": 546,
+      "assetId": 78,
+      "type": "DEPOSIT",
+      "amount": 500000,
+      "timestamp": 1718960400296,
+      "destinationAssetId": null,
+      "exchangeRate": null,
+      "notes": null
+    },
+    {
+      "id": 547,
+      "assetId": 53,
+      "type": "DEPOSIT",
+      "amount": 900000,
+      "timestamp": 1718874000338,
+      "destinationAssetId": null,
+      "exchangeRate": null,
+      "notes": "Initial Balance Setup"
+    },
+    {
+      "id": 548,
+      "assetId": 74,
+      "type": "UPDATE",
+      "amount": 402535.8,
+      "timestamp": 1718874000264,
+      "destinationAssetId": null,
+      "exchangeRate": null,
+      "notes": "Initial Balance Setup"
+    },
+    {
+      "id": 549,
+      "assetId": 75,
+      "type": "UPDATE",
+      "amount": 398277.8,
+      "timestamp": 1718874000094,
+      "destinationAssetId": null,
+      "exchangeRate": null,
+      "notes": "Initial Balance Setup"
+    },
+    {
+      "id": 550,
+      "assetId": 93,
+      "type": "DEPOSIT",
+      "amount": 500000,
+      "timestamp": 1717232400304,
+      "destinationAssetId": null,
+      "exchangeRate": null,
+      "notes": null
+    },
+    {
+      "id": 551,
+      "assetId": 61,
+      "type": "DEPOSIT",
+      "amount": 500000,
+      "timestamp": 1709283600319,
+      "destinationAssetId": null,
+      "exchangeRate": null,
+      "notes": null
+    },
+    {
+      "id": 552,
+      "assetId": 72,
+      "type": "DEPOSIT",
+      "amount": 50000,
+      "timestamp": 1699261200337,
+      "destinationAssetId": null,
+      "exchangeRate": null,
+      "notes": null
+    },
+    {
+      "id": 553,
+      "assetId": 76,
+      "type": "DEPOSIT",
+      "amount": 4943000,
+      "timestamp": 1698224400517,
+      "destinationAssetId": null,
+      "exchangeRate": null,
+      "notes": null
+    },
+    {
+      "id": 554,
+      "assetId": 77,
+      "type": "DEPOSIT",
+      "amount": 4850000,
+      "timestamp": 1696582800781,
+      "destinationAssetId": null,
+      "exchangeRate": null,
+      "notes": null
+    },
+    {
+      "id": 555,
+      "assetId": 79,
+      "type": "DEPOSIT",
+      "amount": 2100000,
+      "timestamp": 1696582800775,
+      "destinationAssetId": null,
+      "exchangeRate": null,
+      "notes": "Initial Deposit"
+    },
+    {
+      "id": 556,
+      "assetId": 59,
+      "type": "DEPOSIT",
+      "amount": 47600,
+      "timestamp": 1696150800147,
+      "destinationAssetId": null,
+      "exchangeRate": null,
+      "notes": null
+    },
+    {
+      "id": 557,
+      "assetId": 63,
+      "type": "DEPOSIT",
+      "amount": 45000,
+      "timestamp": 1696150800025,
+      "destinationAssetId": null,
+      "exchangeRate": null,
+      "notes": null
+    },
+    {
+      "id": 558,
+      "assetId": 72,
+      "type": "DEPOSIT",
+      "amount": 50000,
+      "timestamp": 1695978000320,
+      "destinationAssetId": null,
+      "exchangeRate": null,
+      "notes": null
+    },
+    {
+      "id": 559,
+      "assetId": 72,
+      "type": "DEPOSIT",
+      "amount": 50000,
+      "timestamp": 1690448400245,
+      "destinationAssetId": null,
+      "exchangeRate": null,
+      "notes": null
+    },
+    {
+      "id": 560,
+      "assetId": 55,
+      "type": "DEPOSIT",
+      "amount": 5000000,
+      "timestamp": 1687338000763,
+      "destinationAssetId": null,
+      "exchangeRate": null,
+      "notes": null
+    },
+    {
+      "id": 561,
+      "assetId": 86,
+      "type": "DEPOSIT",
+      "amount": 1200000,
+      "timestamp": 1687338000630,
+      "destinationAssetId": null,
+      "exchangeRate": null,
+      "notes": null
+    },
+    {
+      "id": 562,
+      "assetId": 84,
+      "type": "DEPOSIT",
+      "amount": 500000,
+      "timestamp": 1687251600334,
+      "destinationAssetId": null,
+      "exchangeRate": null,
+      "notes": "Initial Balance Setup"
+    },
+    {
+      "id": 563,
+      "assetId": 72,
+      "type": "DEPOSIT",
+      "amount": 100000,
+      "timestamp": 1686992400638,
+      "destinationAssetId": null,
+      "exchangeRate": null,
+      "notes": null
+    },
+    {
+      "id": 564,
+      "assetId": 60,
+      "type": "DEPOSIT",
+      "amount": 1417,
+      "timestamp": 1685610000264,
+      "destinationAssetId": null,
+      "exchangeRate": null,
+      "notes": null
+    },
+    {
+      "id": 565,
+      "assetId": 72,
+      "type": "DEPOSIT",
+      "amount": 50000,
+      "timestamp": 1685264400630,
+      "destinationAssetId": null,
+      "exchangeRate": null,
+      "notes": null
+    },
+    {
+      "id": 566,
+      "assetId": 83,
+      "type": "DEPOSIT",
+      "amount": 500000,
+      "timestamp": 1680339600419,
+      "destinationAssetId": null,
+      "exchangeRate": null,
+      "notes": null
+    },
+    {
+      "id": 567,
+      "assetId": 92,
+      "type": "DEPOSIT",
+      "amount": 72000,
+      "timestamp": 1672563600800,
+      "destinationAssetId": null,
+      "exchangeRate": null,
+      "notes": null
+    },
+    {
+      "id": 568,
+      "assetId": 57,
+      "type": "DEPOSIT",
+      "amount": 500000,
+      "timestamp": 1655715600850,
+      "destinationAssetId": null,
+      "exchangeRate": null,
+      "notes": null
+    },
+    {
+      "id": 569,
+      "assetId": 73,
+      "type": "UPDATE",
+      "amount": 78000,
+      "timestamp": 1624266000732,
+      "destinationAssetId": null,
+      "exchangeRate": null,
+      "notes": "Initial Balance Setup"
+    },
+    {
+      "id": 570,
+      "assetId": 52,
+      "type": "UPDATE",
+      "amount": 133000,
+      "timestamp": 1624266000069,
+      "destinationAssetId": null,
+      "exchangeRate": null,
+      "notes": "Initial Balance Setup"
+    },
+    {
+      "id": 571,
+      "assetId": 91,
+      "type": "DEPOSIT",
+      "amount": 2000000,
+      "timestamp": 1624179600136,
+      "destinationAssetId": null,
+      "exchangeRate": null,
+      "notes": "Initial Balance Setup"
+    }
+  ],
+  "settings": {
+    "base_currency": "USD",
+    "values_hidden": false,
+    "theme_index": 0,
+    "app_font_scale": 1.0598855,
+    "app_lock_pin": null,
+    "spending_categories": {
+      "Food": [
+        "Groceries",
+        "Restaurants",
+        "Coffee"
+      ],
+      "Transportation": [
+        "Public Transit",
+        "Fuel",
+        "Taxi\/Ride-share"
+      ],
+      "Utilities": [
+        "Electricity",
+        "Water",
+        "Internet",
+        "Phone"
+      ],
+      "Leisure": [
+        "Movies",
+        "Hobby",
+        "Shopping"
+      ],
+      "Housing": [
+        "Rent\/Mortgage",
+        "Maintenance",
+        "Furnishing"
+      ],
+      "Other": [
+        "Uncategorized"
+      ],
+      "Ext Family": [
+        "Couta",
+        "Mami",
+        "Others"
+      ],
+      "Family": [
+        "Anna",
+        "Jhanna",
+        "Jhasmine",
+        "Biyenan"
+      ],
+      "Bisyo": [
+        "Vape",
+        "BH"
+      ],
+      "Car": [
+        "Fuel",
+        "Maintenance",
+        "Registration",
+        "Insurance",
+        "Others"
+      ],
+      "PH Vacation": [
+        "Flight",
+        "Holiday",
+        "Others"
+      ]
+    },
+    "spending_wallet_ids": [
+      56,
+      101,
+      82,
+      102,
+      103
+    ],
+    "default_spending_wallet_id": 101,
+    "selected_wallet_bucket_id": 13,
+    "wallet_aliases": {},
+    "wallet_icons": {
+      "56": "file:\/\/\/data\/user\/0\/com.aistudio.networth.pquylx\/files\/wallet_icon_56.jpg",
+      "78": "file:\/\/\/data\/user\/0\/com.aistudio.networth.pquylx\/files\/wallet_icon_78.jpg",
+      "103": "file:\/\/\/data\/user\/0\/com.aistudio.networth.pquylx\/files\/wallet_icon_103.jpg",
+      "102": "file:\/\/\/data\/user\/0\/com.aistudio.networth.pquylx\/files\/wallet_icon_102.jpg",
+      "101": "file:\/\/\/data\/user\/0\/com.aistudio.networth.pquylx\/files\/wallet_icon_101.jpg",
+      "82": "file:\/\/\/data\/user\/0\/com.aistudio.networth.pquylx\/files\/wallet_icon_82.jpg"
+    }
+  }
+}
