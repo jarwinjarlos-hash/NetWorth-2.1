@@ -153,6 +153,11 @@ export default function App() {
 
   // Sync / Google Drive State Simulation / Real config
   const [googleClientId, setGoogleClientId] = useState(() => localStorage.getItem('nw_g_client_id') || '');
+  const [googleAccessToken, setGoogleAccessToken] = useState<string | null>(null);
+  const [googleUser, setGoogleUser] = useState<{ email: string; name: string; picture?: string } | null>(() => {
+    const saved = localStorage.getItem('nw_google_user');
+    return saved ? JSON.parse(saved) : null;
+  });
   const [isSyncing, setIsSyncing] = useState(false);
   const [lastSyncTime, setLastSyncTime] = useState(() => localStorage.getItem('nw_last_sync') || 'Never');
   const [syncEnabled, setSyncEnabled] = useState(() => localStorage.getItem('nw_sync_enabled') === 'true');
@@ -160,18 +165,22 @@ export default function App() {
   // Persistence triggers
   useEffect(() => {
     localStorage.setItem('nw_categories', JSON.stringify(categories));
+    localStorage.setItem('nw_last_updated', Date.now().toString());
   }, [categories]);
 
   useEffect(() => {
     localStorage.setItem('nw_buckets', JSON.stringify(buckets));
+    localStorage.setItem('nw_last_updated', Date.now().toString());
   }, [buckets]);
 
   useEffect(() => {
     localStorage.setItem('nw_assets', JSON.stringify(assets));
+    localStorage.setItem('nw_last_updated', Date.now().toString());
   }, [assets]);
 
   useEffect(() => {
     localStorage.setItem('nw_transactions', JSON.stringify(transactions));
+    localStorage.setItem('nw_last_updated', Date.now().toString());
   }, [transactions]);
 
   useEffect(() => {
@@ -421,20 +430,266 @@ export default function App() {
     showToast("Backup JSON file exported!");
   };
 
-  // Simulated sync with Google Drive using exact appDataFolder layout
-  const handleDriveSync = () => {
+  // Google Sign-In with scopes via GIS
+  const handleGoogleSignIn = () => {
     if (!googleClientId) {
       showToast("Please enter your Google OAuth Client ID first", "error");
       return;
     }
+
+    if (!(window as any).google) {
+      showToast("Google client SDK is still loading. Try again in a few seconds.", "error");
+      return;
+    }
+
+    try {
+      const client = (window as any).google.accounts.oauth2.initTokenClient({
+        client_id: googleClientId,
+        scope: 'https://www.googleapis.com/auth/drive.appdata https://www.googleapis.com/auth/userinfo.email https://www.googleapis.com/auth/userinfo.profile',
+        callback: async (tokenResponse: any) => {
+          if (tokenResponse.error) {
+            showToast(`Sign in failed: ${tokenResponse.error}`, "error");
+            return;
+          }
+
+          if (tokenResponse.access_token) {
+            setGoogleAccessToken(tokenResponse.access_token);
+            showToast("Google Account connected successfully!", "success");
+
+            // Retrieve Google user details
+            try {
+              const res = await fetch("https://www.googleapis.com/oauth2/v3/userinfo", {
+                headers: {
+                  "Authorization": `Bearer ${tokenResponse.access_token}`
+                }
+              });
+              if (res.ok) {
+                const userInfo = await res.json();
+                const profile = {
+                  email: userInfo.email,
+                  name: userInfo.name,
+                  picture: userInfo.picture
+                };
+                setGoogleUser(profile);
+                localStorage.setItem('nw_google_user', JSON.stringify(profile));
+              }
+            } catch (err) {
+              console.error("Failed to query Google User info", err);
+            }
+          }
+        },
+      });
+
+      client.requestAccessToken({ prompt: 'consent' });
+    } catch (err: any) {
+      showToast(`Google Sign-In error: ${err.message || err}`, "error");
+    }
+  };
+
+  const handleGoogleSignOut = () => {
+    setGoogleAccessToken(null);
+    setGoogleUser(null);
+    localStorage.removeItem('nw_google_user');
+    showToast("Signed out of Google Account");
+  };
+
+  // Find backup file in Google Drive AppData
+  const findRemoteBackupFile = async (token: string) => {
+    const url = `https://www.googleapis.com/drive/v3/files?spaces=appDataFolder&q=name='networth_backup.json'&fields=files(id,name,modifiedTime)`;
+    const res = await fetch(url, {
+      headers: { "Authorization": `Bearer ${token}` }
+    });
+    if (!res.ok) {
+      throw new Error(`Failed to list backup file (HTTP ${res.status})`);
+    }
+    const data = await res.json();
+    if (data.files && data.files.length > 0) {
+      return {
+        id: data.files[0].id,
+        modifiedTime: new Date(data.files[0].modifiedTime).getTime()
+      };
+    }
+    return null;
+  };
+
+  // Download backup content from Google Drive
+  const downloadRemoteBackupFile = async (token: string, fileId: string) => {
+    const url = `https://www.googleapis.com/drive/v3/files/${fileId}?alt=media`;
+    const res = await fetch(url, {
+      headers: { "Authorization": `Bearer ${token}` }
+    });
+    if (!res.ok) {
+      throw new Error(`Failed to download backup data (HTTP ${res.status})`);
+    }
+    return await res.json();
+  };
+
+  // Upload backup content to Google Drive (multipart upload for new files)
+  const uploadRemoteBackupFile = async (token: string, fileId: string | null, payload: any) => {
+    const payloadJson = JSON.stringify(payload, null, 2);
+    
+    if (fileId) {
+      const url = `https://www.googleapis.com/upload/drive/v3/files/${fileId}?uploadType=media`;
+      const res = await fetch(url, {
+        method: "PATCH",
+        headers: {
+          "Authorization": `Bearer ${token}`,
+          "Content-Type": "application/json"
+        },
+        body: payloadJson
+      });
+      if (!res.ok) {
+        throw new Error(`Failed to update backup file (HTTP ${res.status})`);
+      }
+      return true;
+    } else {
+      const url = `https://www.googleapis.com/upload/drive/v3/files?uploadType=multipart`;
+      const boundary = "DriveSyncBoundary";
+      const metadata = {
+        name: "networth_backup.json",
+        parents: ["appDataFolder"]
+      };
+      
+      const body = `--${boundary}\r\n` +
+                   `Content-Type: application/json; charset=UTF-8\r\n\r\n` +
+                   `${JSON.stringify(metadata)}\r\n` +
+                   `--${boundary}\r\n` +
+                   `Content-Type: application/json\r\n\r\n` +
+                   `${payloadJson}\r\n` +
+                   `--${boundary}--`;
+
+      const res = await fetch(url, {
+        method: "POST",
+        headers: {
+          "Authorization": `Bearer ${token}`,
+          "Content-Type": `multipart/related; boundary=${boundary}`
+        },
+        body: body
+      });
+      if (!res.ok) {
+        throw new Error(`Failed to create backup file (HTTP ${res.status})`);
+      }
+      return true;
+    }
+  };
+
+  // Real bi-directional Google Drive sync
+  const handleDriveSync = async () => {
+    if (!googleAccessToken) {
+      showToast("Please sign in with your Google Account first", "error");
+      return;
+    }
+
     setIsSyncing(true);
-    setTimeout(() => {
-      setIsSyncing(false);
+    try {
+      const remoteFile = await findRemoteBackupFile(googleAccessToken);
+      const localLastUpdatedTime = Number(localStorage.getItem('nw_last_updated') || Date.now());
+      
+      const localPayload = {
+        categories,
+        buckets,
+        assets,
+        transactions,
+        lastUpdated: localLastUpdatedTime
+      };
+
+      if (!remoteFile) {
+        showToast("No remote backup found. Creating initial backup in cloud...", "success");
+        await uploadRemoteBackupFile(googleAccessToken, null, localPayload);
+        showToast("Initial backup created in Google Drive successfully!", "success");
+      } else {
+        const cloudPayload = await downloadRemoteBackupFile(googleAccessToken, remoteFile.id);
+        const cloudLastUpdated = cloudPayload.lastUpdated || remoteFile.modifiedTime;
+
+        if (localLastUpdatedTime === cloudLastUpdated) {
+          showToast("Database is already fully synchronized with Google Drive!", "success");
+        } else if (localLastUpdatedTime > cloudLastUpdated) {
+          showToast("Local data is newer. Updating remote cloud backup...", "success");
+          await uploadRemoteBackupFile(googleAccessToken, remoteFile.id, localPayload);
+          showToast("Google Drive cloud backup updated successfully!", "success");
+        } else {
+          showToast("Cloud backup is newer. Restoring local state...", "success");
+          if (cloudPayload.categories) setCategories(cloudPayload.categories);
+          if (cloudPayload.buckets) setBuckets(cloudPayload.buckets);
+          if (cloudPayload.assets) setAssets(cloudPayload.assets);
+          if (cloudPayload.transactions) setTransactions(cloudPayload.transactions);
+          showToast("Restored latest backup from Google Drive successfully!", "success");
+        }
+      }
+
       const timeNow = new Date().toLocaleString();
       setLastSyncTime(timeNow);
       localStorage.setItem('nw_last_sync', timeNow);
-      showToast("Successfully synchronized with Google Drive (appDataFolder)!");
-    }, 1500);
+    } catch (err: any) {
+      showToast(`Sync failed: ${err.message || err}`, "error");
+    } finally {
+      setIsSyncing(false);
+    }
+  };
+
+  // Force local state to cloud backup file
+  const handleForcePushToCloud = async () => {
+    if (!googleAccessToken) {
+      showToast("Please sign in with your Google Account first", "error");
+      return;
+    }
+
+    setIsSyncing(true);
+    try {
+      const remoteFile = await findRemoteBackupFile(googleAccessToken);
+      const localLastUpdatedTime = Number(localStorage.getItem('nw_last_updated') || Date.now());
+      const localPayload = {
+        categories,
+        buckets,
+        assets,
+        transactions,
+        lastUpdated: localLastUpdatedTime
+      };
+
+      await uploadRemoteBackupFile(googleAccessToken, remoteFile?.id || null, localPayload);
+      showToast("Forced local database to Google Drive backup successfully!", "success");
+
+      const timeNow = new Date().toLocaleString();
+      setLastSyncTime(timeNow);
+      localStorage.setItem('nw_last_sync', timeNow);
+    } catch (err: any) {
+      showToast(`Force Push failed: ${err.message || err}`, "error");
+    } finally {
+      setIsSyncing(false);
+    }
+  };
+
+  // Force cloud backup file to overwrite local state
+  const handleForcePullFromCloud = async () => {
+    if (!googleAccessToken) {
+      showToast("Please sign in with your Google Account first", "error");
+      return;
+    }
+
+    setIsSyncing(true);
+    try {
+      const remoteFile = await findRemoteBackupFile(googleAccessToken);
+      if (!remoteFile) {
+        showToast("No remote backup found on Google Drive to restore from.", "error");
+        return;
+      }
+
+      const cloudPayload = await downloadRemoteBackupFile(googleAccessToken, remoteFile.id);
+      if (cloudPayload.categories) setCategories(cloudPayload.categories);
+      if (cloudPayload.buckets) setBuckets(cloudPayload.buckets);
+      if (cloudPayload.assets) setAssets(cloudPayload.assets);
+      if (cloudPayload.transactions) setTransactions(cloudPayload.transactions);
+      
+      showToast("Forced local database to match Google Drive backup!", "success");
+
+      const timeNow = new Date().toLocaleString();
+      setLastSyncTime(timeNow);
+      localStorage.setItem('nw_last_sync', timeNow);
+    } catch (err: any) {
+      showToast(`Force Pull failed: ${err.message || err}`, "error");
+    } finally {
+      setIsSyncing(false);
+    }
   };
 
   // Helper formatting values with proper currency symbol
@@ -806,6 +1061,7 @@ export default function App() {
                   ⚡ <strong>Unified Cross-Platform Sync:</strong> This web-pwa leverages your secure <code>appDataFolder</code> inside Google Drive. The Android application reads and writes to this exact folder, keeping your valuation details identical across all devices safely.
                 </div>
 
+                {/* Google Client ID Configuration */}
                 <div className="space-y-2">
                   <label className="block text-xs font-semibold text-slate-400">Custom Google Cloud Client ID</label>
                   <input 
@@ -815,27 +1071,107 @@ export default function App() {
                       setGoogleClientId(e.target.value);
                       localStorage.setItem('nw_g_client_id', e.target.value);
                     }}
-                    placeholder="Enter your Google OAuth Client ID..."
+                    placeholder="Enter your Google OAuth Web Client ID..."
                     className="w-full bg-slate-950 border border-slate-850 px-3 py-2 rounded-lg text-xs font-mono text-slate-300 focus:outline-none focus:border-blue-500"
                   />
-                  <p className="text-[10px] text-slate-500">Leaving this blank allows direct manual backups sync via files.</p>
+                  <p className="text-[10px] text-slate-500">
+                    To connect to your Google Account, you need a Google Cloud Web Client ID with Drive AppData permission configured.
+                  </p>
                 </div>
 
-                <div className="flex flex-col md:flex-row gap-3 pt-2">
-                  <button 
-                    onClick={handleDriveSync}
-                    disabled={isSyncing}
-                    className="flex-1 bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-500 hover:to-indigo-500 disabled:opacity-50 text-white text-xs font-bold py-2.5 px-4 rounded-lg flex items-center justify-center gap-1.5 shadow transition-all"
-                  >
-                    <RefreshCw size={14} className={isSyncing ? "animate-spin" : ""} />
-                    {isSyncing ? "Syncing Drive..." : "Synchronize Drive"}
-                  </button>
+                {/* Google Authentication Status & Connection Actions */}
+                <div className="bg-slate-950/40 border border-slate-800/80 rounded-xl p-4 space-y-3">
+                  <span className="text-[10px] text-slate-500 font-bold uppercase tracking-wider">Google Connection Status</span>
+                  
+                  {!googleAccessToken ? (
+                    <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pt-1">
+                      <div className="flex items-center gap-2">
+                        <span className="w-2.5 h-2.5 rounded-full bg-amber-500 animate-pulse" />
+                        <span className="text-xs font-medium text-slate-400">Not connected to Google Account</span>
+                      </div>
+                      <button
+                        onClick={handleGoogleSignIn}
+                        className="bg-blue-600 hover:bg-blue-500 active:scale-95 text-white text-xs font-bold py-2 px-4 rounded-lg flex items-center justify-center gap-2 shadow transition-all"
+                      >
+                        <Cloud size={14} />
+                        Connect Google Account
+                      </button>
+                    </div>
+                  ) : (
+                    <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pt-1">
+                      <div className="flex items-center gap-3">
+                        {googleUser?.picture ? (
+                          <img 
+                            src={googleUser.picture} 
+                            alt={googleUser.name} 
+                            className="w-8 h-8 rounded-full border border-slate-700 shadow-sm"
+                            referrerPolicy="no-referrer"
+                          />
+                        ) : (
+                          <div className="w-8 h-8 rounded-full bg-blue-950 border border-blue-800 flex items-center justify-center text-xs font-bold text-blue-400">
+                            {googleUser?.name?.charAt(0) || "G"}
+                          </div>
+                        )}
+                        <div className="flex flex-col">
+                          <span className="text-xs font-bold text-slate-200">{googleUser?.name || "Connected User"}</span>
+                          <span className="text-[10px] text-slate-400">{googleUser?.email || "Authorized"}</span>
+                        </div>
+                      </div>
+                      <button
+                        onClick={handleGoogleSignOut}
+                        className="bg-slate-800 hover:bg-slate-700 active:scale-95 text-slate-300 text-xs font-bold py-2 px-3 rounded-lg flex items-center justify-center gap-1.5 border border-slate-700 transition-all"
+                      >
+                        Disconnect
+                      </button>
+                    </div>
+                  )}
+                </div>
 
-                  <div className="text-center md:text-right flex flex-col justify-center">
-                    <span className="text-[10px] text-slate-500 font-semibold uppercase">Last Synchronized</span>
-                    <span className="text-xs font-bold text-slate-300">{lastSyncTime}</span>
+                {/* Cloud Sync Operations (Only enabled when authorized) */}
+                {googleAccessToken && (
+                  <div className="space-y-4 pt-2">
+                    <div className="flex flex-col sm:flex-row gap-3">
+                      <button 
+                        onClick={handleDriveSync}
+                        disabled={isSyncing}
+                        className="flex-1 bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-500 hover:to-indigo-500 disabled:opacity-50 text-white text-xs font-bold py-2.5 px-4 rounded-lg flex items-center justify-center gap-1.5 shadow-lg transition-all"
+                      >
+                        <RefreshCw size={14} className={isSyncing ? "animate-spin" : ""} />
+                        {isSyncing ? "Synchronizing..." : "Synchronize Drive (Auto Merge)"}
+                      </button>
+
+                      <div className="text-center sm:text-right flex flex-col justify-center">
+                        <span className="text-[10px] text-slate-500 font-semibold uppercase">Last Synchronized</span>
+                        <span className="text-xs font-bold text-slate-300">{lastSyncTime}</span>
+                      </div>
+                    </div>
+
+                    {/* Developer manual force override tools */}
+                    <div className="border-t border-slate-800/60 pt-4 space-y-2">
+                      <h4 className="text-xs font-bold text-slate-300">Manual Sync Overrides</h4>
+                      <p className="text-[10px] text-slate-500">Directly override content direction in case of synchronization mismatches:</p>
+                      
+                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-1">
+                        <button
+                          onClick={handleForcePushToCloud}
+                          disabled={isSyncing}
+                          className="bg-slate-800 hover:bg-slate-750 active:scale-95 disabled:opacity-50 text-xs font-bold py-2 px-3 rounded-lg flex items-center justify-center gap-1.5 text-blue-400 border border-slate-750 transition-all"
+                        >
+                          <Upload size={14} />
+                          Force Push (Local → Cloud)
+                        </button>
+                        <button
+                          onClick={handleForcePullFromCloud}
+                          disabled={isSyncing}
+                          className="bg-slate-800 hover:bg-slate-750 active:scale-95 disabled:opacity-50 text-xs font-bold py-2 px-3 rounded-lg flex items-center justify-center gap-1.5 text-emerald-400 border border-slate-750 transition-all"
+                        >
+                          <Download size={14} />
+                          Force Pull (Cloud → Local)
+                        </button>
+                      </div>
+                    </div>
                   </div>
-                </div>
+                )}
               </div>
             </div>
 
@@ -1138,10 +1474,12 @@ export default function App() {
           <Cloud size={16} /> Drive Sync Settings
         </button>
 
-        <div className="mt-auto border-t border-slate-800 pt-4 p-2 text-[10px] text-slate-500 space-y-1 font-semibold">
-          <p>Logged in: jarwin.jarlos@gmail.com</p>
-          <p>PWA App Version: Beta 2.1</p>
-          <p className="text-blue-500/80">Google Drive Connected</p>
+        <div className="mt-auto border-t border-slate-800 pt-4 p-2 text-[10px] text-slate-500 space-y-1 font-semibold font-mono">
+          <p className="truncate">Logged in: {googleUser?.email || "jarwin.jarlos@gmail.com"}</p>
+          <p>PWA App Version: Beta 2.2</p>
+          <p className={googleAccessToken ? "text-emerald-500" : "text-amber-500"}>
+            ● {googleAccessToken ? "Google Drive Connected" : "Local Offline Mode"}
+          </p>
         </div>
       </aside>
     </div>
