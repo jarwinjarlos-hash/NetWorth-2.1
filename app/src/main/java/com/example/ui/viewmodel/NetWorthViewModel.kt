@@ -75,6 +75,30 @@ class NetWorthViewModel(
 
     private val prefs = application.getSharedPreferences("networth_prefs", Context.MODE_PRIVATE)
 
+    private val prefChangeListener = android.content.SharedPreferences.OnSharedPreferenceChangeListener { sharedPreferences, key ->
+        if (key == "prefs_is_dirty" || key == "prefs_last_updated" || key == "auto_sync_drive") return@OnSharedPreferenceChangeListener
+        
+        sharedPreferences.edit()
+            .putBoolean("prefs_is_dirty", true)
+            .putLong("prefs_last_updated", System.currentTimeMillis())
+            .apply()
+
+        triggerAutoSyncIfEnabled()
+    }
+
+    fun triggerAutoSyncIfEnabled() {
+        if (autoSyncDrive.value && syncManager.isUserSignedIn()) {
+            viewModelScope.launch {
+                try {
+                    val res = syncManager.uploadLocalToCloud()
+                    android.util.Log.d("NetWorthViewModel", "Auto-sync preferences change upload: ${if (res.isSuccess) "Success" else "Failed (${res.exceptionOrNull()?.message})"}")
+                } catch (e: Exception) {
+                    android.util.Log.e("NetWorthViewModel", "Auto-sync preferences change upload error", e)
+                }
+            }
+        }
+    }
+
     val syncManager = com.example.data.sync.GoogleDriveSyncManager(application, repository)
 
     private val _isDriveSignedIn = MutableStateFlow(syncManager.isUserSignedIn())
@@ -131,6 +155,7 @@ class NetWorthViewModel(
     }
 
     init {
+        prefs.registerOnSharedPreferenceChangeListener(prefChangeListener)
         updateDriveState()
         if (autoSyncDrive.value) {
             triggerInitialSync()
@@ -164,6 +189,11 @@ class NetWorthViewModel(
         }
     }
 
+    override fun onCleared() {
+        super.onCleared()
+        prefs.unregisterOnSharedPreferenceChangeListener(prefChangeListener)
+    }
+
     fun refreshAllSettingsFlows() {
         _categoryOrder.value = (prefs.getString("category_order", "") ?: "")
             .split(",")
@@ -184,6 +214,10 @@ class NetWorthViewModel(
         _walletAliases.value = getInitialWalletAliases()
         _walletIcons.value = getInitialWalletIcons()
         _walletBudgets.value = getInitialWalletBudgets()
+        _transactionTemplates.value = getInitialTransactionTemplates()
+        _recurringExpenses.value = getInitialRecurringExpenses()
+        _subcategoryBudgets.value = getInitialSubcategoryBudgets()
+        _subcategoryBudgetCurrencies.value = getInitialSubcategoryBudgetCurrencies()
     }
 
     private val _categoryOrder = MutableStateFlow<List<Int>>(
@@ -2744,6 +2778,57 @@ class NetWorthViewModel(
             }
             settingsObj.put("wallet_budgets", budgetsObj)
 
+            // Include wallet transaction templates
+            val templatesStr = prefs.getString("wallet_transaction_templates", null)
+            if (templatesStr != null) {
+                try {
+                    settingsObj.put("wallet_transaction_templates", org.json.JSONArray(templatesStr))
+                } catch (e: Exception) {
+                    e.printStackTrace()
+                }
+            }
+
+            // Include recurring expenses
+            val recurringStr = prefs.getString("wallet_recurring_expenses", null)
+            if (recurringStr != null) {
+                try {
+                    settingsObj.put("wallet_recurring_expenses", org.json.JSONArray(recurringStr))
+                } catch (e: Exception) {
+                    e.printStackTrace()
+                }
+            }
+
+            // Include subcategory budgets and currencies
+            val subcatBudgetsObj = org.json.JSONObject()
+            _subcategoryBudgets.value.forEach { (subcat, budget) ->
+                subcatBudgetsObj.put(subcat, budget)
+            }
+            settingsObj.put("subcat_budgets", subcatBudgetsObj)
+
+            val subcatCurrenciesObj = org.json.JSONObject()
+            _subcategoryBudgetCurrencies.value.forEach { (subcat, currency) ->
+                subcatCurrenciesObj.put(subcat, currency)
+            }
+            settingsObj.put("subcat_budget_currencies", subcatCurrenciesObj)
+
+            // Include custom logo files
+            val logoFilesObj = org.json.JSONObject()
+            _walletIcons.value.forEach { (assetId, iconUrl) ->
+                if (iconUrl.startsWith("file://")) {
+                    val file = java.io.File(getApplication<Application>().filesDir, "wallet_icon_${assetId}.jpg")
+                    if (file.exists()) {
+                        try {
+                            val bytes = file.readBytes()
+                            val b64 = android.util.Base64.encodeToString(bytes, android.util.Base64.NO_WRAP)
+                            logoFilesObj.put(assetId.toString(), b64)
+                        } catch (e: Exception) {
+                            e.printStackTrace()
+                        }
+                    }
+                }
+            }
+            settingsObj.put("custom_logo_files", logoFilesObj)
+
             root.put("settings", settingsObj)
 
             root.toString(2)
@@ -3143,8 +3228,6 @@ class NetWorthViewModel(
                         }
                     }
                     _walletAliases.value = getInitialWalletAliases()
-
-                    // Restore Wallet Icons
                     prefs.all.keys.filter { it.startsWith("wallet_icon_") }.forEach { k ->
                         prefs.edit().remove(k).apply()
                     }
@@ -3155,10 +3238,14 @@ class NetWorthViewModel(
                             while (keys.hasNext()) {
                                 val oldAssetIdStr = keys.next()
                                 val oldAssetId = oldAssetIdStr.toIntOrNull()
-                                val icon = iconsObj.getString(oldAssetIdStr)
+                                var icon = iconsObj.getString(oldAssetIdStr)
                                 if (oldAssetId != null) {
                                     val newAssetId = assetMap[oldAssetId]
                                     if (newAssetId != null) {
+                                        if (icon.startsWith("file://")) {
+                                            val newFile = java.io.File(getApplication<Application>().filesDir, "wallet_icon_${newAssetId}.jpg")
+                                            icon = "file://" + newFile.absolutePath
+                                        }
                                         prefs.edit().putString("wallet_icon_$newAssetId", icon).apply()
                                     }
                                 }
@@ -3166,6 +3253,31 @@ class NetWorthViewModel(
                         }
                     }
                     _walletIcons.value = getInitialWalletIcons()
+
+                    // Restore Custom Logo Files
+                    if (settingsObj.has("custom_logo_files")) {
+                        val logoFilesObj = settingsObj.optJSONObject("custom_logo_files")
+                        if (logoFilesObj != null) {
+                            val keys = logoFilesObj.keys()
+                            while (keys.hasNext()) {
+                                val oldAssetIdStr = keys.next()
+                                val oldAssetId = oldAssetIdStr.toIntOrNull()
+                                val b64 = logoFilesObj.getString(oldAssetIdStr)
+                                if (oldAssetId != null && b64.isNotEmpty()) {
+                                    val newAssetId = assetMap[oldAssetId]
+                                    if (newAssetId != null) {
+                                        try {
+                                            val bytes = android.util.Base64.decode(b64, android.util.Base64.DEFAULT)
+                                            val file = java.io.File(getApplication<Application>().filesDir, "wallet_icon_${newAssetId}.jpg")
+                                            file.writeBytes(bytes)
+                                        } catch (e: Exception) {
+                                            e.printStackTrace()
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
 
                     // Restore Wallet Budgets
                     prefs.all.keys.filter { it.startsWith("wallet_budget_") }.forEach { k ->
@@ -3189,6 +3301,61 @@ class NetWorthViewModel(
                         }
                     }
                     _walletBudgets.value = getInitialWalletBudgets()
+
+                    // Restore Wallet Transaction Templates
+                    if (settingsObj.has("wallet_transaction_templates")) {
+                        val arr = settingsObj.optJSONArray("wallet_transaction_templates")
+                        if (arr != null) {
+                            prefs.edit().putString("wallet_transaction_templates", arr.toString()).apply()
+                        }
+                    }
+                    _transactionTemplates.value = getInitialTransactionTemplates()
+
+                    // Restore Recurring Expenses (mapping old wallet ID/asset ID -> new asset ID)
+                    if (settingsObj.has("wallet_recurring_expenses")) {
+                        val arr = settingsObj.optJSONArray("wallet_recurring_expenses")
+                        if (arr != null) {
+                            val mappedArr = org.json.JSONArray()
+                            for (j in 0 until arr.length()) {
+                                val o = arr.getJSONObject(j)
+                                val oldWalletId = o.optInt("walletId", -1)
+                                val newWalletId = assetMap[oldWalletId] ?: oldWalletId
+                                o.put("walletId", newWalletId)
+                                mappedArr.put(o)
+                            }
+                            prefs.edit().putString("wallet_recurring_expenses", mappedArr.toString()).apply()
+                        }
+                    }
+                    _recurringExpenses.value = getInitialRecurringExpenses()
+
+                    // Restore Subcategory Budgets and Currencies
+                    prefs.all.keys.filter { it.startsWith("subcat_budget_") }.forEach { k ->
+                        prefs.edit().remove(k).apply()
+                    }
+                    if (settingsObj.has("subcat_budgets")) {
+                        val budgetsObj = settingsObj.optJSONObject("subcat_budgets")
+                        if (budgetsObj != null) {
+                            val keys = budgetsObj.keys()
+                            while (keys.hasNext()) {
+                                val subcatKey = keys.next()
+                                val budgetVal = budgetsObj.getDouble(subcatKey)
+                                prefs.edit().putFloat("subcat_budget_$subcatKey", budgetVal.toFloat()).apply()
+                            }
+                        }
+                    }
+                    if (settingsObj.has("subcat_budget_currencies")) {
+                        val currObj = settingsObj.optJSONObject("subcat_budget_currencies")
+                        if (currObj != null) {
+                            val keys = currObj.keys()
+                            while (keys.hasNext()) {
+                                val subcatKey = keys.next()
+                                val currVal = currObj.getString(subcatKey)
+                                prefs.edit().putString("subcat_budget_curr_$subcatKey", currVal).apply()
+                            }
+                        }
+                    }
+                    _subcategoryBudgets.value = getInitialSubcategoryBudgets()
+                    _subcategoryBudgetCurrencies.value = getInitialSubcategoryBudgetCurrencies()
                 }
             }
             

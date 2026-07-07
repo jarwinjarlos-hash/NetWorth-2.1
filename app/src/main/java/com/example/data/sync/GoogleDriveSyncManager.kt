@@ -31,7 +31,8 @@ data class DriveSyncPayload(
     val transactions: List<Transaction> = emptyList(),
     val snapshots: List<PortfolioSnapshot> = emptyList(),
     val lastUpdated: Long = 0L,
-    val settingsJson: String? = null
+    val settingsJson: String? = null,
+    val customLogos: Map<String, String>? = null
 )
 
 class GoogleDriveApiException(val code: Int, val errorBody: String) : java.io.IOException("Google Drive API HTTP $code: $errorBody")
@@ -243,20 +244,22 @@ class GoogleDriveSyncManager(
 
     // Core Sync Operations
 
-    private suspend fun downloadCloudToLocalInternal(token: String): Result<Unit> = withContext(Dispatchers.IO) {
+    private suspend fun downloadCloudToLocalInternal(token: String, force: Boolean = false): Result<Unit> = withContext(Dispatchers.IO) {
         val remoteFile = findRemoteBackupFile(token) ?: return@withContext Result.failure(Exception("No backup file found in Google Drive appDataFolder"))
         val payloadJson = downloadRemoteBackupFile(token, remoteFile.id) ?: return@withContext Result.failure(Exception("Failed to download cloud backup content"))
         
         val payload = payloadAdapter.fromJson(payloadJson) ?: return@withContext Result.failure(Exception("Failed to parse cloud backup payload"))
 
-        // Perform Last-Write-Wins: if local data has a more recent update, reject replacement or raise conflict
-        val localLastUpdated = getLocalMaxLastUpdated()
-        if (localLastUpdated == payload.lastUpdated) {
-            Log.d("GoogleDriveSyncManager", "Local database is already perfectly up to date with Google Drive cloud backup. Skipping DB reload.")
-            return@withContext Result.success(Unit)
-        }
-        if (localLastUpdated > payload.lastUpdated) {
-            return@withContext Result.failure(Exception("Local database is newer than Google Drive cloud backup"))
+        if (!force) {
+            // Perform Last-Write-Wins: if local data has a more recent update, reject replacement or raise conflict
+            val localLastUpdated = getLocalMaxLastUpdated()
+            if (localLastUpdated == payload.lastUpdated) {
+                Log.d("GoogleDriveSyncManager", "Local database is already perfectly up to date with Google Drive cloud backup. Skipping DB reload.")
+                return@withContext Result.success(Unit)
+            }
+            if (localLastUpdated > payload.lastUpdated) {
+                return@withContext Result.failure(Exception("Local database is newer than Google Drive cloud backup"))
+            }
         }
 
         // Clear old database contents completely to match the cloud backup exactly (deleting anything that was deleted in the cloud)
@@ -273,6 +276,20 @@ class GoogleDriveSyncManager(
         payload.transactions.forEach { repository.insertTransaction(it.copy(isDirty = false)) }
         payload.snapshots.forEach { repository.insertSnapshot(it.copy(isDirty = false)) }
 
+        // Restore custom logos if any
+        payload.customLogos?.forEach { (assetIdStr, b64) ->
+            if (b64.isNotEmpty()) {
+                try {
+                    val bytes = android.util.Base64.decode(b64, android.util.Base64.DEFAULT)
+                    val file = java.io.File(context.filesDir, "wallet_icon_${assetIdStr}.jpg")
+                    file.writeBytes(bytes)
+                    Log.d("GoogleDriveSyncManager", "Restored custom logo file for assetId $assetIdStr")
+                } catch (e: Exception) {
+                    Log.e("GoogleDriveSyncManager", "Failed to restore custom logo file for assetId $assetIdStr", e)
+                }
+            }
+        }
+
         // Restore type-preserved settings/preferences
         restoreSettingsFromJson(payload.settingsJson)
 
@@ -282,11 +299,11 @@ class GoogleDriveSyncManager(
     }
 
     // Pull cloud backup, compare and deserialize to local DB
-    suspend fun downloadCloudToLocal(): Result<Unit> = withContext(Dispatchers.IO) {
+    suspend fun downloadCloudToLocal(force: Boolean = false): Result<Unit> = withContext(Dispatchers.IO) {
         val token = getAccessToken() ?: return@withContext Result.failure(Exception("Google Account Sign-In required or Drive access not authorized"))
         
         try {
-            downloadCloudToLocalInternal(token)
+            downloadCloudToLocalInternal(token, force)
         } catch (e: GoogleDriveApiException) {
             if (e.code == 401 || e.code == 403) {
                 Log.w("GoogleDriveSyncManager", "Auth error (${e.code}) on download, clearing token and retrying...", e)
@@ -298,7 +315,7 @@ class GoogleDriveSyncManager(
                 val newToken = getAccessToken()
                 if (newToken != null && newToken != token) {
                     try {
-                        downloadCloudToLocalInternal(newToken)
+                        downloadCloudToLocalInternal(newToken, force)
                     } catch (retryEx: Exception) {
                         Result.failure(retryEx)
                     }
@@ -321,6 +338,24 @@ class GoogleDriveSyncManager(
         val transactions = repository.allTransactions.first()
         val snapshots = repository.allSnapshots.first()
 
+        val customLogosMap = mutableMapOf<String, String>()
+        val prefs = context.getSharedPreferences("networth_prefs", Context.MODE_PRIVATE)
+        prefs.all.forEach { (key, value) ->
+            if (key.startsWith("wallet_icon_") && value is String && value.startsWith("file://")) {
+                val assetId = key.substringAfter("wallet_icon_")
+                val file = java.io.File(context.filesDir, "wallet_icon_${assetId}.jpg")
+                if (file.exists()) {
+                    try {
+                        val bytes = file.readBytes()
+                        val b64 = android.util.Base64.encodeToString(bytes, android.util.Base64.NO_WRAP)
+                        customLogosMap[assetId] = b64
+                    } catch (e: Exception) {
+                        Log.e("GoogleDriveSyncManager", "Failed to read custom logo file for assetId $assetId", e)
+                    }
+                }
+            }
+        }
+
         val maxLocalTimestamp = getLocalMaxLastUpdated()
         val payload = DriveSyncPayload(
             categories = categories,
@@ -329,7 +364,8 @@ class GoogleDriveSyncManager(
             transactions = transactions,
             snapshots = snapshots,
             lastUpdated = maxLocalTimestamp,
-            settingsJson = getSettingsJson()
+            settingsJson = getSettingsJson(),
+            customLogos = customLogosMap
         )
 
         val payloadJson = payloadAdapter.toJson(payload)
@@ -421,7 +457,9 @@ class GoogleDriveSyncManager(
         val txs = repository.allTransactions.first().any { it.isDirty }
         val snaps = repository.allSnapshots.first().any { it.isDirty }
         val hasDeletions = getDeletions().isNotEmpty()
-        return cats || assets || buckets || txs || snaps || hasDeletions
+        val prefs = context.getSharedPreferences("networth_prefs", Context.MODE_PRIVATE)
+        val prefsIsDirty = prefs.getBoolean("prefs_is_dirty", false)
+        return cats || assets || buckets || txs || snaps || hasDeletions || prefsIsDirty
     }
 
     // Helper to clear dirty flags upon successful sync
@@ -437,6 +475,9 @@ class GoogleDriveSyncManager(
         buckets.forEach { repository.updateBucket(it.copy(isDirty = false)) }
         transactions.forEach { repository.updateTransaction(it.copy(isDirty = false)) }
         snapshots.forEach { repository.insertSnapshot(it.copy(isDirty = false)) }
+
+        val prefs = context.getSharedPreferences("networth_prefs", Context.MODE_PRIVATE)
+        prefs.edit().putBoolean("prefs_is_dirty", false).apply()
     }
 
     // Helper to calculate maximum lastUpdated timestamp across all local data
@@ -448,10 +489,6 @@ class GoogleDriveSyncManager(
         val txs = repository.allTransactions.first()
         val snaps = repository.allSnapshots.first()
 
-        if (cats.isEmpty() && assets.isEmpty() && buckets.isEmpty() && txs.isEmpty() && snaps.isEmpty() && getDeletions().isEmpty()) {
-            return 0L
-        }
-
         cats.forEach { if (it.lastUpdated > maxTime) maxTime = it.lastUpdated }
         assets.forEach { if (it.lastUpdated > maxTime) maxTime = it.lastUpdated }
         buckets.forEach { if (it.lastUpdated > maxTime) maxTime = it.lastUpdated }
@@ -459,6 +496,16 @@ class GoogleDriveSyncManager(
         snaps.forEach { if (it.lastUpdated > maxTime) maxTime = it.lastUpdated }
 
         getDeletions().values.forEach { if (it > maxTime) maxTime = it }
+
+        val prefs = context.getSharedPreferences("networth_prefs", Context.MODE_PRIVATE)
+        val prefsLastUpdated = prefs.getLong("prefs_last_updated", 0L)
+        if (prefsLastUpdated > maxTime) {
+            maxTime = prefsLastUpdated
+        }
+
+        if (assets.isEmpty() && buckets.isEmpty() && txs.isEmpty() && snaps.isEmpty() && getDeletions().isEmpty() && prefsLastUpdated == 0L) {
+            return 0L
+        }
 
         return if (maxTime == 0L) System.currentTimeMillis() else maxTime
     }
@@ -517,6 +564,12 @@ class GoogleDriveSyncManager(
             val prefs = context.getSharedPreferences("networth_prefs", Context.MODE_PRIVATE)
             val editor = prefs.edit()
             
+            // Capture existing auto-sync setting and clear everything else
+            // so any deleted settings (like budgets) are deleted locally too
+            val autoSyncEnabled = prefs.getBoolean("auto_sync_drive", false)
+            editor.clear()
+            editor.putBoolean("auto_sync_drive", autoSyncEnabled)
+            
             val keys = root.keys()
             while (keys.hasNext()) {
                 val key = keys.next()
@@ -535,7 +588,15 @@ class GoogleDriveSyncManager(
                     "long" -> editor.putLong(key, item.getLong("value"))
                     "float" -> editor.putFloat(key, item.getDouble("value").toFloat())
                     "double" -> editor.putFloat(key, item.getDouble("value").toFloat())
-                    "string" -> editor.putString(key, item.getString("value"))
+                    "string" -> {
+                        var stringValue = item.getString("value")
+                        if (key.startsWith("wallet_icon_") && stringValue.startsWith("file://")) {
+                            val assetIdStr = key.substringAfter("wallet_icon_")
+                            val localFile = java.io.File(context.filesDir, "wallet_icon_${assetIdStr}.jpg")
+                            stringValue = "file://" + localFile.absolutePath
+                        }
+                        editor.putString(key, stringValue)
+                    }
                 }
             }
             editor.apply()

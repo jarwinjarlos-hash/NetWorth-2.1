@@ -9797,7 +9797,7 @@ fun SettingsTab(
                 contentAlignment = Alignment.Center
             ) {
                 Text(
-                    text = "App Version: Beta 2.1",
+                    text = "App Version: Beta 2.2",
                     style = MaterialTheme.typography.bodySmall,
                     color = MaterialTheme.colorScheme.onSurfaceVariant.copy(alpha = 0.5f)
                 )
@@ -13105,7 +13105,7 @@ fun AboutDialog(
                 )
                 Spacer(modifier = Modifier.height(8.dp))
                 Text(
-                    text = "Developer: DashJay\nContact: dashshallburn@gmail.com\nVersion: 2.1 (Beta 2.1)\nAI Studio Edition",
+                    text = "Developer: DashJay\nContact: dashshallburn@gmail.com\nVersion: 2.2 (Beta 2.2)\nAI Studio Edition",
                     style = MaterialTheme.typography.labelSmall,
                     color = MaterialTheme.colorScheme.onSurfaceVariant.copy(alpha = 0.8f)
                 )
@@ -13293,7 +13293,7 @@ fun FirebaseSyncSection(
                                 isLoading = true
                                 statusMessage = ""
                                 scope.launch {
-                                    val result = viewModel.syncManager.downloadCloudToLocal()
+                                    val result = viewModel.syncManager.downloadCloudToLocal(force = true)
                                     isLoading = false
                                     if (result.isSuccess) {
                                         viewModel.refreshAllSettingsFlows()

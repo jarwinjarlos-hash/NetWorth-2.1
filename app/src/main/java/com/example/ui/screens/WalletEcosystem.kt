@@ -78,6 +78,37 @@ fun parseSpendingNote(note: String?): ParsedSpending {
     return ParsedSpending("Other", "General", if (delimiterIndex == -1) note else userNote)
 }
 
+fun getCategoryIcon(categoryName: String, subcategoryName: String = ""): androidx.compose.ui.graphics.vector.ImageVector {
+    val catLower = categoryName.lowercase(Locale.ROOT).trim()
+    val subLower = subcategoryName.lowercase(Locale.ROOT).trim()
+    
+    return when {
+        // Food & Drink
+        subLower.contains("grocery") || subLower.contains("groceries") -> Icons.Default.ShoppingCart
+        subLower.contains("restaurant") || subLower.contains("dining") || subLower.contains("food") || catLower.contains("food") -> Icons.Default.Restaurant
+        
+        // Transportation & Automotive
+        subLower.contains("transit") || subLower.contains("bus") || subLower.contains("train") || catLower.contains("transportation") -> Icons.Default.DirectionsCar
+        
+        // Utilities & Communications
+        subLower.contains("electricity") || subLower.contains("power") || subLower.contains("water") || subLower.contains("internet") || subLower.contains("wifi") || subLower.contains("phone") || catLower.contains("utility") || catLower.contains("utilities") -> Icons.Default.Settings
+        
+        // Housing & Accommodation
+        subLower.contains("rent") || subLower.contains("mortgage") || subLower.contains("furnish") || catLower.contains("housing") || catLower.contains("home") -> Icons.Default.Home
+        
+        // Leisure & Shopping & Entertainment
+        subLower.contains("movie") || subLower.contains("theater") || subLower.contains("game") || subLower.contains("hobby") || subLower.contains("shop") || subLower.contains("shopping") || subLower.contains("bag") || catLower.contains("leisure") || catLower.contains("entertainment") -> Icons.Default.Star
+        
+        // Health / Pets / Education / Other standard categories
+        catLower.contains("health") || catLower.contains("medical") -> Icons.Default.Favorite
+        catLower.contains("pet") -> Icons.Default.Pets
+        catLower.contains("education") -> Icons.Default.School
+        catLower.contains("work") || catLower.contains("business") -> Icons.Default.Work
+        
+        else -> Icons.Default.Category
+    }
+}
+
 @Composable
 fun WalletHistoryTabContent(
     walletAsset: Asset,
@@ -216,6 +247,12 @@ fun WalletHistoryTabContent(
                         verticalAlignment = Alignment.CenterVertically,
                         horizontalArrangement = Arrangement.spacedBy(14.dp)
                     ) {
+                        val transactionIcon = when {
+                            isTransfer -> Icons.Default.SwapHoriz
+                            isIncome -> Icons.Default.ArrowUpward
+                            else -> getCategoryIcon(parsed.mainCategory, parsed.subcategory)
+                        }
+
                         Surface(
                             color = txColor.copy(alpha = 0.12f),
                             shape = CircleShape,
@@ -223,7 +260,7 @@ fun WalletHistoryTabContent(
                         ) {
                             Box(contentAlignment = Alignment.Center) {
                                 Icon(
-                                    imageVector = if (isIncome) Icons.Default.ArrowUpward else Icons.Default.ArrowDownward,
+                                    imageVector = transactionIcon,
                                     contentDescription = null,
                                     tint = txColor,
                                     modifier = Modifier.size(20.dp)
@@ -1426,12 +1463,26 @@ fun WalletReportsTabContent(
                                         horizontalArrangement = Arrangement.SpaceBetween,
                                         verticalAlignment = Alignment.CenterVertically
                                     ) {
-                                        Text(
-                                            text = catName,
-                                            style = MaterialTheme.typography.bodyMedium,
-                                            fontWeight = FontWeight.Bold,
-                                            color = MaterialTheme.colorScheme.onSurface
-                                        )
+                                        Row(
+                                            horizontalArrangement = Arrangement.spacedBy(8.dp),
+                                            verticalAlignment = Alignment.CenterVertically,
+                                            modifier = Modifier.weight(1f)
+                                        ) {
+                                            Icon(
+                                                imageVector = getCategoryIcon(catName),
+                                                contentDescription = null,
+                                                tint = barColor,
+                                                modifier = Modifier.size(18.dp)
+                                            )
+                                            Text(
+                                                text = catName,
+                                                style = MaterialTheme.typography.bodyMedium,
+                                                fontWeight = FontWeight.Bold,
+                                                color = MaterialTheme.colorScheme.onSurface,
+                                                maxLines = 1,
+                                                overflow = TextOverflow.Ellipsis
+                                            )
+                                        }
                                         Text(
                                             text = formatAssetCurrency(catValue, reportCurrency, valuesHidden = valuesHidden),
                                             style = MaterialTheme.typography.bodyMedium,
@@ -2111,13 +2162,24 @@ fun WalletTransactionDialog(
                                     shape = RoundedCornerShape(8.dp),
                                     color = if (isSel) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.surfaceVariant
                                 ) {
-                                    Text(
-                                        text = catName,
-                                        style = MaterialTheme.typography.labelSmall,
-                                        fontWeight = FontWeight.Bold,
-                                        modifier = Modifier.padding(horizontal = 12.dp, vertical = 8.dp),
-                                        color = if (isSel) MaterialTheme.colorScheme.onPrimary else MaterialTheme.colorScheme.onSurfaceVariant
-                                    )
+                                    Row(
+                                        horizontalArrangement = Arrangement.spacedBy(6.dp),
+                                        verticalAlignment = Alignment.CenterVertically,
+                                        modifier = Modifier.padding(horizontal = 12.dp, vertical = 8.dp)
+                                    ) {
+                                        Icon(
+                                            imageVector = getCategoryIcon(catName),
+                                            contentDescription = null,
+                                            tint = if (isSel) MaterialTheme.colorScheme.onPrimary else MaterialTheme.colorScheme.onSurfaceVariant,
+                                            modifier = Modifier.size(16.dp)
+                                        )
+                                        Text(
+                                            text = catName,
+                                            style = MaterialTheme.typography.labelSmall,
+                                            fontWeight = FontWeight.Bold,
+                                            color = if (isSel) MaterialTheme.colorScheme.onPrimary else MaterialTheme.colorScheme.onSurfaceVariant
+                                        )
+                                    }
                                 }
                             }
                         }
@@ -4073,15 +4135,26 @@ fun WalletSettingsDialog(
                                             horizontalArrangement = Arrangement.SpaceBetween,
                                             verticalAlignment = Alignment.CenterVertically
                                         ) {
-                                            Text(
-                                                text = category,
-                                                fontWeight = FontWeight.Bold,
-                                                style = MaterialTheme.typography.titleSmall,
-                                                color = MaterialTheme.colorScheme.onSurface,
-                                                maxLines = 1,
-                                                overflow = TextOverflow.Ellipsis,
+                                            Row(
+                                                horizontalArrangement = Arrangement.spacedBy(8.dp),
+                                                verticalAlignment = Alignment.CenterVertically,
                                                 modifier = Modifier.weight(1f)
-                                            )
+                                            ) {
+                                                Icon(
+                                                    imageVector = getCategoryIcon(category),
+                                                    contentDescription = null,
+                                                    tint = MaterialTheme.colorScheme.primary,
+                                                    modifier = Modifier.size(18.dp)
+                                                )
+                                                Text(
+                                                    text = category,
+                                                    fontWeight = FontWeight.Bold,
+                                                    style = MaterialTheme.typography.titleSmall,
+                                                    color = MaterialTheme.colorScheme.onSurface,
+                                                    maxLines = 1,
+                                                    overflow = TextOverflow.Ellipsis
+                                                )
+                                            }
                                             Row(
                                                 horizontalArrangement = Arrangement.spacedBy(4.dp),
                                                 verticalAlignment = Alignment.CenterVertically
@@ -4476,9 +4549,21 @@ fun WalletSettingsDialog(
                                             OutlinedButton(
                                                 onClick = { mainCatExpanded = true },
                                                 modifier = Modifier.fillMaxWidth(),
-                                                shape = RoundedCornerShape(8.dp)
+                                                shape = RoundedCornerShape(8.dp),
+                                                contentPadding = PaddingValues(horizontal = 8.dp, vertical = 4.dp)
                                             ) {
-                                                Text(templateMainCat, maxLines = 1, overflow = TextOverflow.Ellipsis, style = MaterialTheme.typography.bodySmall)
+                                                Row(
+                                                    horizontalArrangement = Arrangement.spacedBy(6.dp),
+                                                    verticalAlignment = Alignment.CenterVertically
+                                                ) {
+                                                    Icon(
+                                                        imageVector = getCategoryIcon(templateMainCat),
+                                                        contentDescription = null,
+                                                        tint = MaterialTheme.colorScheme.primary,
+                                                        modifier = Modifier.size(16.dp)
+                                                    )
+                                                    Text(templateMainCat, maxLines = 1, overflow = TextOverflow.Ellipsis, style = MaterialTheme.typography.bodySmall)
+                                                }
                                             }
                                             DropdownMenu(
                                                 expanded = mainCatExpanded,
@@ -4486,7 +4571,20 @@ fun WalletSettingsDialog(
                                             ) {
                                                 spendingCategories.keys.forEach { cat ->
                                                     DropdownMenuItem(
-                                                        text = { Text(cat) },
+                                                        text = {
+                                                            Row(
+                                                                horizontalArrangement = Arrangement.spacedBy(8.dp),
+                                                                verticalAlignment = Alignment.CenterVertically
+                                                            ) {
+                                                                Icon(
+                                                                    imageVector = getCategoryIcon(cat),
+                                                                    contentDescription = null,
+                                                                    tint = MaterialTheme.colorScheme.primary,
+                                                                    modifier = Modifier.size(18.dp)
+                                                                )
+                                                                Text(cat)
+                                                            }
+                                                        },
                                                         onClick = {
                                                             templateMainCat = cat
                                                             templateSubCat = spendingCategories[cat]?.firstOrNull() ?: "General"
@@ -4858,6 +4956,14 @@ fun WalletSettingsDialog(
                                                     singleLine = true,
                                                     textStyle = MaterialTheme.typography.bodyMedium.copy(fontSize = 12.sp),
                                                     label = { Text("Category", style = MaterialTheme.typography.bodySmall.copy(fontSize = 11.sp), maxLines = 1, overflow = TextOverflow.Ellipsis) },
+                                                    leadingIcon = {
+                                                        Icon(
+                                                            imageVector = getCategoryIcon(recMainCat),
+                                                            contentDescription = null,
+                                                            tint = MaterialTheme.colorScheme.primary,
+                                                            modifier = Modifier.size(18.dp)
+                                                        )
+                                                    },
                                                     trailingIcon = { Icon(Icons.Default.ArrowDropDown, null, modifier = Modifier.size(18.dp)) },
                                                     modifier = Modifier.fillMaxWidth(),
                                                     shape = RoundedCornerShape(8.dp)
@@ -4874,7 +4980,20 @@ fun WalletSettingsDialog(
                                                 ) {
                                                     spendingCategories.keys.forEach { cat ->
                                                         DropdownMenuItem(
-                                                            text = { Text(cat) },
+                                                            text = {
+                                                                Row(
+                                                                    horizontalArrangement = Arrangement.spacedBy(8.dp),
+                                                                    verticalAlignment = Alignment.CenterVertically
+                                                                ) {
+                                                                    Icon(
+                                                                        imageVector = getCategoryIcon(cat),
+                                                                        contentDescription = null,
+                                                                        tint = MaterialTheme.colorScheme.primary,
+                                                                        modifier = Modifier.size(18.dp)
+                                                                    )
+                                                                    Text(cat)
+                                                                }
+                                                            },
                                                             onClick = {
                                                                 recMainCat = cat
                                                                 recSubCat = spendingCategories[cat]?.firstOrNull() ?: "General"
